@@ -13,7 +13,7 @@ App.register('more', {
       ['settings', '⚙️', 'Cài đặt', 'Giọng đọc, sao lưu']
     ];
     root.appendChild(h('div.grid2', tiles.map(([r, e, t, s]) => h('button.tile', { onclick: () => App.go(r) }, h('span.te', e), t, h('span.sub', s)))));
-    root.appendChild(h('div.card.tint-sky.mt2.center', FX.mascot('happy', 'sm'), h('b', 'Mèo HSK'), h('div.small.muted', { style: { fontWeight: 500 } }, '1.200 từ lõi HSK1–4 · 66 điểm ngữ pháp · 40 đề thi thử HSK 3.0 · thuật toán ôn FSRS-4.5'), h('div.small.muted', { style: { fontWeight: 500 } }, 'Mỗi ngày một chút, tiến bộ mỗi ngày')));
+    root.appendChild(h('div.card.tint-sky.mt2.center', FX.mascot('happy', 'sm'), h('b', 'Mèo HSK'), h('div.small.muted', { style: { fontWeight: 500 } }, D.words.length.toLocaleString('vi-VN') + ' từ HSK 1–4 (đủ đề cương HSK 3.0) · ' + D.grammar.length + ' điểm ngữ pháp · 40 đề thi thử · thuật toán ôn FSRS-4.5'), h('div.small.muted', { style: { fontWeight: 500 } }, 'Mỗi ngày một chút, tiến bộ mỗi ngày')));
   }
 });
 
@@ -109,6 +109,6 @@ App.register('settings', {
       h('div.row.wrap',
         h('button.btn.ghost.sm', { onclick: async () => { if (await FX.confirm(`Xóa tiến độ của ${p.name}?`, 'Toàn bộ thẻ, điểm, huy hiệu của hồ sơ này sẽ về 0. Không thể hoàn tác (trừ khi có file sao lưu).', 'Xóa tiến độ', 'Thôi')) { Store.resetProfileProgress(p.id); FX.toast('Đã đặt lại tiến độ'); App.refresh(); } } }, '♻️ Đặt lại tiến độ hồ sơ này'),
         Store.all().length > 1 ? h('button.btn.red.sm', { onclick: async () => { if (await FX.confirm(`Xóa hồ sơ ${p.name}?`, 'Hồ sơ và toàn bộ tiến độ sẽ bị xóa khỏi máy này.', 'Xóa hồ sơ', 'Thôi')) { Store.removeProfile(p.id); App.go('home'); } } }, '🗑️ Xóa hồ sơ') : null),
-      h('p.small.muted', { style: { fontWeight: 500 } }, 'Nguồn: định dạng đề theo đề cương HSK 3.0 (CTI, 2025) do các trang luyện thi tổng hợp; từ vựng lõi theo đề cương HSK 2.0 cấp 1–4; nét chữ: Hanzi Writer / Make Me a Hanzi; pinyin câu ví dụ: tra theo kho từ + quy tắc đa âm, biến điệu 一/不; thuật toán ôn: FSRS-4.5 (open-spaced-repetition). Câu hỏi và bài đọc do app biên soạn theo định dạng chính thức, không phải đề thi gốc.')));
+      h('p.small.muted', { style: { fontWeight: 500 } }, 'Nguồn: định dạng đề theo đề cương HSK 3.0 (CTI, 2025) do các trang luyện thi tổng hợp; từ vựng: HSK 2.0 cấp 1–4 cộng phần bổ sung theo đề cương HSK 3.0 (11/2025) cấp 1–4; nét chữ: Hanzi Writer / Make Me a Hanzi; pinyin câu ví dụ: tra theo kho từ + quy tắc đa âm, biến điệu 一/不; thuật toán ôn: FSRS-4.5 (open-spaced-repetition). Câu hỏi và bài đọc do app biên soạn theo định dạng chính thức, không phải đề thi gốc.')));
   }
 });

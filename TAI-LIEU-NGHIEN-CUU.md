@@ -30,7 +30,7 @@
 | | HSK 2.0 (cũ) | HSK 3.0 (mới, đề cương 2025) |
 |---|---|---|
 | **Từ vựng HSK3** (cộng dồn) | 600 | khoảng 1.000 |
-| **Từ vựng HSK4** (cộng dồn) | 1.200 | khoảng 2.000 |
+| **Từ vựng** (cộng dồn) | HSK3: 600 · HSK4: 1.200 | HSK3: 1.000 · HSK4: 2.000 (đề cương 11/2025) |
 | **Đề HSK3** | 80 câu (nghe 40, đọc 30, viết 10), khoảng 90 phút | 70 câu (nghe 30, đọc 30, viết 10), khoảng 83 phút **+ thi nói khoảng 15 phút** |
 | **Đề HSK4** | 100 câu (nghe 45, đọc 40, viết 15), khoảng 105 phút | 70 câu (nghe 32, đọc 32, viết 6), khoảng 85 phút **+ thi nói khoảng 20 phút** |
 | **Thang điểm** | 300 điểm, đậu từ 180 | Đề mẫu chưa công bố thang điểm và điểm đậu chính thức |
@@ -44,7 +44,7 @@
 **Ý nghĩa cho kế hoạch học:**
 - Cần **nhiều từ hơn** đề cũ (HSK4 khoảng 2.000 từ) và **phải luyện nói** (HSKK).
 - Từ cấp 4 có **viết đoạn văn**, nên phải tập gõ hoặc viết câu hoàn chỉnh từ sớm.
-- App tiếng Trung lấy **1.200 từ lõi HSK1–4** (phần lớn vẫn nằm trong HSK 3.0) làm xương sống, có chức năng **nhập thêm từ** khi có danh sách chính thức hoặc từ giáo trình. Đề thi thử mô phỏng **định dạng HSK 3.0**.
+- App tiếng Trung có **2.051 từ**: 1.205 từ HSK 2.0 cấp 1–4, cộng 846 từ còn thiếu so với **đề cương thi HSK 3.0 (11/2025)** cấp 1–4. Như vậy app phủ đủ 1.994 từ của đề cương cấp 1–4. Danh sách đề cương lấy từ bản tổng hợp của [Chill Chinese](https://chill-chinese.com/blog/new-hsk-4/), đối chiếu số lượng với [HanziStroke](https://www.hanzistroke.com/blog/new-hsk-3-guide). Nghĩa tiếng Việt và âm Hán Việt do tôi viết. Đề thi thử mô phỏng **định dạng HSK 3.0**.
 
 ### 1.2 Tiếng Anh: TOEIC Listening & Reading
 
@@ -274,7 +274,7 @@ Phần lớn từ vựng học thuật và trừu tượng của tiếng Việt 
 | **3. HSK4** | +600 từ lõi HSK4, khoảng 30 điểm ngữ pháp, đọc đoạn dài, điền câu, viết đoạn 80 chữ | 16–20 tuần |
 | **4. Luyện đề HSK4** | 20 đề thi thử + luyện nói HSKK trung cấp + viết | 4–6 tuần |
 
-Tổng cộng **khoảng 9–12 tháng** để từ HSK2 đến sẵn sàng thi HSK4 (HSK 3.0). Phần từ chênh lệch giữa 1.200 từ lõi và khoảng 2.000 từ của HSK 3.0 bổ sung bằng chức năng nhập từ, lấy từ giáo trình hoặc danh sách chính thức.
+Tổng cộng **khoảng 9–12 tháng** để từ HSK2 đến sẵn sàng thi HSK4 (HSK 3.0). Lộ trình trong app đã gồm đủ từ của đề cương HSK 3.0 cấp 1–4. Các nhóm có tiêu đề "Mở rộng" ở cuối chặng HSK3 và chặng HSK4 là phần từ mới của đề cương 2025.
 
 **Nhịp từ mới:** 8–12 từ/ngày là vừa. Nhiều hơn 15 từ/ngày thì khối lượng ôn sẽ phình rất nhanh sau 2–3 tuần.
 
@@ -397,15 +397,22 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 4. **Ngữ pháp:** mỗi điểm có giải thích tiếng Việt, ví dụ có đọc mẫu, lỗi hay sai, và bài tập.
 5. **Phát âm và chữ Hán:** luyện thanh điệu, đoán thanh nhờ Hán Việt, bộ thủ, xem và tập viết nét.
 6. **Luyện nói:** nghe, nói theo, app chấm độ giống.
-7. **Thi thử:** 20 đề HSK3 + 20 đề HSK4 theo định dạng HSK 3.0, có giờ, chấm theo thang 300, xem lại từng câu kèm dịch và giải thích. **Mỗi lần làm lại, câu hỏi được sinh mới.**
+7. **Thi thử:**
+   - 20 đề HSK3 + 20 đề HSK4 theo định dạng HSK 3.0, có giờ, chấm theo thang 300. **Mỗi lần làm lại, câu hỏi được sinh mới.**
+   - Màn tổng kết sau khi nộp bài:
+     - vòng điểm có vạch mốc 180 và so điểm với lần trước;
+     - điểm từng kỹ năng nghe, đọc, viết;
+     - bảng phân tích **từng phần của đề**, đánh dấu 2 phần mất điểm nhiều nhất, kèm nút **Luyện** đưa thẳng tới dạng bài đó;
+     - khi đỗ có màn ăn mừng với con dấu 过.
+   - Xem lại từng câu kèm lời dịch và giải thích.
 8. **Tiến độ:** biểu đồ XP 14 ngày, điểm thi thử, số từ đã thuộc, huy hiệu.
 
 ### 9.3 Nội dung có trong app
 
 | Hạng mục | Số lượng |
 |---|---|
-| Từ vựng lõi HSK1–4 (pinyin, Hán Việt, nghĩa, từ loại, emoji) | 1.205 mục, chia 57 nhóm chủ đề |
-| Bài học trên lộ trình | 238 bài: 142 bài từ vựng, 66 bài ngữ pháp, 27 bài kiểm tra nhỏ, 3 bài thi cuối chặng |
+| Từ vựng HSK1–4 (pinyin, Hán Việt, nghĩa, từ loại, emoji) | 2.051 mục, chia 85 nhóm chủ đề. Gồm 1.205 từ HSK 2.0 và 846 từ bổ sung theo đề cương HSK 3.0 (gắn nhãn "HSK 3.0" trong Kho từ) |
+| Bài học trên lộ trình | 347 bài: 239 bài từ vựng, 66 bài ngữ pháp, 39 bài kiểm tra nhỏ, 3 bài thi cuối chặng |
 | Điểm ngữ pháp (giải thích tiếng Việt, ví dụ, lỗi hay gặp, bài tập) | 34 HSK3 + 32 HSK4 |
 | Câu ví dụ có dịch (dùng cho thẻ từ, điền từ, sắp xếp câu) | 567 câu |
 | Bài nghe | 42 câu chọn tranh, 46 hội thoại ngắn và 30 hội thoại dài HSK3, 57 hội thoại và 44 đoạn độc thoại HSK4 |
@@ -419,7 +426,9 @@ Vào Cài đặt → **Xuất tiến độ** để lưu file `.json`. Sang máy 
 ### 9.5 Giới hạn cần biết
 - Dữ liệu nằm trong trình duyệt của từng máy. Học trên máy khác thì dùng **Xuất / Nhập tiến độ** để mang theo.
 - Câu hỏi, hội thoại và bài đọc trong app **do tôi biên soạn** bám đúng định dạng và phạm vi từ vựng chính thức. Đây **không phải đề thi gốc**, vì đề gốc có bản quyền. Trước kỳ thi nên làm thêm đề mẫu chính thức trên chinesetest.cn.
-- Danh sách từ lõi là 1.200 từ HSK1–4. HSK 3.0 cấp 4 cần khoảng 2.000 từ, phần còn lại thêm bằng **Từ vựng → Nhập từ**.
+- Kho từ đã đủ đề cương HSK 3.0 cấp 1–4. Danh sách đề cương lấy từ một trang luyện thi tổng hợp lại, không phải file gốc của CTI, nên vẫn có thể lệch vài từ.
+- 846 từ bổ sung chưa có câu ví dụ riêng: thẻ từ của chúng chỉ hiện ví dụ khi trong kho câu có sẵn câu chứa từ đó. Bài luyện vẫn đủ các dạng nghĩa, nghe, chữ Hán, pinyin.
+- **Nhập từ** vẫn dùng được để thêm từ trong giáo trình đang học.
 - Phần viết đoạn văn và nói được chấm bằng **bảng tự đánh giá** kèm bài mẫu, không thay được giáo viên chấm.
 
 ### 9.6 Giao diện và hiệu ứng
@@ -442,7 +451,7 @@ Vào Cài đặt → **Xuất tiến độ** để lưu file `.json`. Sang máy 
 
 ### 9.7 Pinyin câu ví dụ
 Pinyin dưới câu ví dụ được ghi **theo từ**:
-- Tra kho từ đã soát kỹ (1.205 từ, đối chiếu từng mục với thư viện pinyin chuẩn).
+- Tra kho từ đã soát kỹ: 1.205 từ đối chiếu với thư viện pinyin chuẩn, 846 từ bổ sung lấy pinyin từ danh sách đề cương.
 - Áp quy tắc ngữ cảnh cho chữ đa âm: 得 de/děi, 长 cháng/zhǎng, 还 hái/huán, 过 guò/guo, 地 de/dì, 只 zhǐ/zhī, 种 zhǒng/zhòng.
 - Áp biến điệu 一/不 (yí ge, bú duì).
 - Thanh nhẹ và âm 儿 ghi như sách giáo khoa (māma, nǎr).
@@ -460,6 +469,8 @@ Ví dụ: 女儿长得很像妈妈 → *Nǚ'ér zhǎng de hěn xiàng māma.* C�
 - hskmock, *HSK 3.0 vs Current HSK*: https://hskmock.com/en/blog/370.html
 - Fluentide, *HSK 3 (HSK 3.0)*: https://fluentide.com/chinese/hsk/3
 - MandarinZone, *HSK 4 Guide 2026*: https://www.mandarinzone.com/hsk-level-4-all-you-need-to-know-about-hsk-4/
+- Chill Chinese, *HSK 3.0 Level 4 Vocabulary List* (đề cương 11/2025, kèm file CSV cấp 1–4): https://chill-chinese.com/blog/new-hsk-4/
+- HanziStroke, *HSK 3.0 vs 2.0: What Changes in July 2026*: https://www.hanzistroke.com/blog/new-hsk-3-guide
 - IIBC, *TOEIC L&R Test format*: https://www.iibc-global.org/english/toeic/test/lr/about/format.html
 - JLPT, *Test sections and test time*: https://jlpt.jp/e/guideline/testsections.html
 - Wikibooks, *JLPT Guide/About JLPT*: https://en.wikibooks.org/wiki/JLPT_Guide/About_JLPT

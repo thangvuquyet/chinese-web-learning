@@ -115,10 +115,10 @@ const Exam = (() => {
     const usedS = new Set();
     const sections = conf.sections.map(sec => ({ key: sec.key, name: sec.name, icon: sec.icon, parts: [], items: [] }));
     let num = 1;
-    const push = (si, part, qs) => {
+    const push = (si, part, qs, kind) => {
       const sec = sections[si];
       sec.parts.push({ label: part, from: num, to: num + qs.length - 1 });
-      for (const q of qs) { q.num = num++; q.sec = sec.key; q.part = part; sec.items.push(q); }
+      for (const q of qs) { q.num = num++; q.sec = sec.key; q.part = part; q.kind = kind; sec.items.push(q); }
     };
     conf.sections.forEach((sec, si) => {
       for (const [kind, n, label] of sec.parts) {
@@ -184,7 +184,7 @@ const Exam = (() => {
         } else if (kind === 'essay') {
           qs = take('essay', HSK.essay4, 1).map(it => ({ type: 'essay', prompt: it[0], promptVi: it[1], model: it[2] }));
         }
-        if (qs.length) push(si, label, qs);
+        if (qs.length) push(si, label, qs, kind);
       }
     });
     const all = sections.flatMap(s => s.items);

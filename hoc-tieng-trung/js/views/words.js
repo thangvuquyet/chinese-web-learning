@@ -5,11 +5,11 @@ App.register('words', {
     let lv = 3, q = '', filter = 'all', limit = 80;
     root.appendChild(UI.pageTitle('📚', 'Kho từ vựng', h('button.btn.sm.indigo', { onclick: importer }, '➕ Nhập từ')));
     const tabs = h('div.tabs');
-    const search = h('input.input', { placeholder: '🔍 Tìm chữ Hán, pinyin, Hán Việt hoặc nghĩa…', oninput: U.debounce(e => { q = e.target.value.trim().toLowerCase(); limit = 80; paint(); }, 200) });
+    const search = h('input.input', { placeholder: 'Tìm chữ Hán, pinyin, Hán Việt hoặc nghĩa…', oninput: U.debounce(e => { q = e.target.value.trim().toLowerCase(); limit = 80; paint(); }, 200) });
     const filt = h('div.row.wrap.mt');
     const info = h('div.small.muted.mt', { style: { fontWeight: 600 } });
     const list = h('div.list.mt');
-    root.append(tabs, search, filt, info, list);
+    root.append(tabs, h('div.search', Icon.svg('search'), search), filt, info, list);
     function paintTabs() {
       clear(tabs);
       [[1, 'HSK1'], [2, 'HSK2'], [3, 'HSK3'], [4, 'HSK4'], [0, '⭐ Của tôi']].forEach(([v, l]) => tabs.appendChild(h('button' + (lv === v ? '.on' : ''), { onclick: () => { lv = v; limit = 80; paintTabs(); paint(); } }, l)));
@@ -37,16 +37,17 @@ App.register('words', {
         const cu = D.words.filter(w => w.lv === 0);
         const notIn = cu.filter(w => !p.cards[w.id]);
         if (cu.length) list.appendChild(h('div.card.tint-leaf', h('div.row', h('div.grow', h('b', `${cu.length} từ của tôi`), h('div.small.muted', { style: { fontWeight: 500 } }, `${notIn.length} từ chưa vào bộ ôn`)), notIn.length ? h('button.btn.sm', { onclick: () => App.go('learn', 'custom') }, '🚀 Học 10 từ') : null)));
-        else list.appendChild(UI.empty('Chưa có từ nào. Bấm "➕ Nhập từ" để thêm từ trong giáo trình hoặc danh sách HSK 3.0 chính thức.'));
+        else list.appendChild(UI.empty('Chưa có từ nào. Bấm "Nhập từ" để thêm từ trong giáo trình bạn đang học.'));
       }
-      const icons = { new: '⚪', learning: '🟠', young: '🟡', mature: '🟢' };
+      const names = { new: 'Chưa học', learning: 'Đang học', young: 'Đang nhớ', mature: 'Nhớ chắc' };
       ws.slice(0, limit).forEach(w => {
         const b = SRS.bucket(p.cards[w.id]);
         list.appendChild(h('div.li', { onclick: () => UI.openWord(w) },
           h('span.lz', w.hz),
           h('div.lm', h('b', w.py + (w.hv ? ' · ' + w.hv : '')), h('span', w.vi)),
-          h('span.st', { title: b }, icons[b]),
-          h('span', { onclick: e => { e.stopPropagation(); Speech.speak(w.hz); } }, '🔊')));
+          w.x ? h('span.pill.info.x30', { title: 'Từ bổ sung theo đề cương HSK 3.0 (11/2025)' }, 'HSK 3.0') : null,
+          h('span.st-dot.' + b, { title: names[b], 'aria-label': names[b] }),
+          UI.audioBtn(w.hz, { sm: true })));
       });
       if (ws.length > limit) list.appendChild(h('button.btn.ghost.block', { onclick: () => { limit += 120; paint(); } }, `Xem thêm (${ws.length - limit})`));
     }
@@ -57,7 +58,7 @@ App.register('words', {
         const ta = h('textarea.essay', { style: { minHeight: '180px', fontSize: '16px' }, placeholder: '汉字|pinyin|nghĩa tiếng Việt|Hán Việt (tùy chọn)\n例如|lìrú|ví dụ như|lệ như\n新闻|xīnwén|tin tức' });
         return h('div',
           h('h2', '➕ Nhập từ của riêng bạn'),
-          h('p.small', { style: { fontWeight: 500 } }, 'Mỗi dòng một từ, các cột cách nhau bằng dấu | hoặc Tab hoặc dấu phẩy. Dùng để bổ sung từ trong danh sách HSK 3.0 chính thức (HSK4 khoảng 2.000 từ) hoặc giáo trình bạn đang học.'),
+          h('p.small', { style: { fontWeight: 500 } }, 'Mỗi dòng một từ, các cột cách nhau bằng dấu | hoặc Tab hoặc dấu phẩy. Kho từ đã đủ đề cương HSK 3.0 cấp 1–4; phần này dùng để thêm từ trong giáo trình hoặc tài liệu bạn đang học.'),
           ta,
           h('button.btn.block.mt', {
             onclick: () => {

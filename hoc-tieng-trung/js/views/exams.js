@@ -163,33 +163,101 @@
         Store.save(true);
         const pass = sc.total >= 180;
         const ev = Store.addXP(40 + (pass ? 30 : 0));
-        showResult(root, p, rec, sc, p.exams.length - 1);
+        showResult(root, p, rec, sc, p.exams.length - 1, exam);
+        if (pass) {
+          const firstPass = !p.exams.slice(0, -1).some(e => e.level === level && e.total >= 180);
+          setTimeout(() => FX.cele({
+            kind: 'pass', title: `Đỗ đề thi thử HSK${level}`,
+            sub: `Đề ${no} · ${sc.total}/300 điểm, vượt mốc 180${firstPass ? '. Lần đầu đỗ HSK' + level + '!' : '.'}`,
+            hero: h('div.seal.pass-seal', '过'),
+            sound: () => { FX.sfx.stamp(); setTimeout(() => FX.sfx.level(), 250); }, confetti: { n: 200 }
+          }), 900);
+        }
         UI.celebrate(ev);
       }
     }
   });
 
-  function showResult(root, p, rec, sc, index) {
+  const PRACTICE = {
+    pic: ['drill', 'pic', 'Luyện nghe chọn tranh'], dlg3: ['drill', 'listen3', 'Luyện nghe hội thoại'], long3: ['drill', 'listen3', 'Luyện nghe hội thoại'],
+    dlg4s: ['drill', 'listen4', 'Luyện nghe HSK4'], dlg4l: ['drill', 'listen4', 'Luyện nghe HSK4'], mono1: ['speak', null, 'Luyện shadowing'], mono2: ['speak', null, 'Luyện shadowing'],
+    fill3: ['review', null, 'Ôn thẻ từ vựng'], fill4: ['review', null, 'Ôn thẻ từ vựng'], reply3: ['drill', 'read3', 'Luyện đọc HSK3'], read3: ['drill', 'read3', 'Luyện đọc HSK3'],
+    read4: ['drill', 'read4', 'Luyện đọc HSK4'], read4d: ['drill', 'read4', 'Luyện đọc HSK4'], para4: ['drill', 'read4', 'Luyện đọc HSK4'],
+    order3: ['grammar', null, 'Ôn ngữ pháp'], picword: ['grammar', null, 'Ôn ngữ pháp'], charpick: ['hanzi', null, 'Luyện chữ Hán'], essay: ['grammar', null, 'Ôn liên từ, ngữ pháp']
+  };
+  function partStats(exam, sc) {
+    const out = [];
+    for (const sec of Exam.CONF[exam.level].sections) for (const [kind, , label] of sec.parts) {
+      const idx = exam.items.map((q, i) => q.kind === kind ? i : -1).filter(i => i >= 0);
+      if (!idx.length) continue;
+      if (kind === 'essay') { if (sc.essay) out.push({ kind, sec: sec.key, label, right: sc.essay.pts, total: 40, ratio: sc.essay.pts / 40, essay: true }); continue; }
+      const right = idx.filter(i => sc.per[i]).length;
+      out.push({ kind, sec: sec.key, label, right, total: idx.length, ratio: right / idx.length });
+    }
+    const weak = out.filter(x => x.ratio < 0.8).sort((a, b) => a.ratio - b.ratio).slice(0, 2);
+    weak.forEach(x => { x.weak = true; });
+    return out;
+  }
+  function gauge(total) {
+    const R = 74, C = 2 * Math.PI * R, ang = 180 / 300 * 360 - 90;
+    const tx = 90 + Math.cos(ang * Math.PI / 180) * R, ty = 90 + Math.sin(ang * Math.PI / 180) * R;
+    const el = h('div.score-gauge');
+    el.innerHTML = `<svg viewBox="0 0 180 180"><defs><linearGradient id="sgg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0F7B66"/><stop offset="1" stop-color="#34508A"/></linearGradient></defs><circle cx="90" cy="90" r="${R}" stroke="#E6E1D6" stroke-width="12" fill="none"/><circle class="sg-arc" cx="90" cy="90" r="${R}" stroke="url(#sgg)" stroke-width="12" fill="none" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 90 90)" data-to="${C * (1 - Math.min(total, 300) / 300)}"/><circle cx="${tx}" cy="${ty}" r="5" fill="#fff" stroke="#C99429" stroke-width="3"/></svg>`;
+    el.appendChild(h('div.sg-c', h('b.sg-n', '0'), h('small', '/ 300 điểm')));
+    return el;
+  }
+  function verdict(v) { return v >= 70 ? ['Tốt', 'ok'] : v >= 55 ? ['Khá', 'info'] : v >= 40 ? ['Cần cố gắng', 'warn'] : ['Cần ưu tiên', 'bad']; }
+  function showResult(root, p, rec, sc, index, exam) {
     clear(root);
     const pass = rec.total >= 180;
     const hist = p.exams.filter(e => e.level === rec.level);
-    root.append(h('div.result-wrap.page-enter',
-      FX.mascot(pass ? 'wow' : 'happy', 'lg'),
-      h('h1', { style: { margin: '6px 0' } }, pass ? 'ĐỖ rồi! 恭喜你！' : 'Hoàn thành bài thi!'),
-      h('div.score-big', rec.total), h('div', { style: { fontWeight: 700, color: 'var(--muted)' } }, '/ 300 điểm · mốc đỗ tham khảo 180'),
-      h('div.card.mt', { style: { textAlign: 'left' } },
-        ...[['🎧 Nghe', rec.L, ''], ['📖 Đọc', rec.R, 'indigo'], ['✍️ Viết', rec.W, 'gold']].map(([n, v, c]) => h('div.sec-bar', h('span', n), UI.progress(v / 100, c), h('b', v))),
-        sc && sc.essay ? h('div.small.muted', { style: { fontWeight: 500, marginTop: '8px' } }, `Bài viết: ${sc.essay.pts}/40 điểm (${sc.essay.auto.n} chữ, ${sc.essay.auto.found.length} liên từ)`) : null,
-        h('div.small', { style: { fontWeight: 600, marginTop: '8px' } }, `Đúng ${rec.right}/${rec.count} câu trắc nghiệm · thời gian ${U.fmtDur(rec.dur)}`)),
+    const prev = hist.length > 1 ? hist[hist.length - 2] : null;
+    const delta = prev ? rec.total - prev.total : null;
+    const g = gauge(rec.total);
+    const parts = exam ? partStats(exam, sc) : [];
+    const secs = [['L', 'Nghe', 'headphones', rec.L], ['R', 'Đọc', 'book', rec.R], ['W', 'Viết', 'brush', rec.W]];
+    const secEls = secs.map(([k, name, ic, v]) => {
+      const vd = verdict(v);
+      const num = h('b', '0');
+      const card = h('div.sec-card', h('div.row.between', h('span.sc-name', Icon.svg(ic), name), h('span.pill.' + vd[1], vd[0])), h('div.sc-num', num, h('small', '/100')), UI.progress(v / 100, v >= 55 ? 'leaf' : v >= 40 ? 'gold' : ''));
+      card._num = [num, v];
+      return card;
+    });
+    const go = x => { const [route, param] = PRACTICE[x.kind] || ['review']; return () => param ? App.go(route, param) : App.go(route); };
+    root.append(h('div.exam-result.page-enter',
+      h('div.er-hero',
+        h('div.er-gauge', g, pass ? h('span.seal.er-seal', '过') : null),
+        h('div.er-info',
+          h('div.er-kicker', `HSK${rec.level} · Đề ${rec.no} · ${rec.real ? 'thi thật' : 'luyện tập'}`),
+          h('h1.er-title', pass ? 'Đỗ đề thi thử!' : rec.total >= 150 ? 'Sắp chạm mốc rồi' : 'Đã hoàn thành bài thi'),
+          h('div.row.wrap', { style: { gap: '6px' } },
+            h('span.pill.' + (pass ? 'ok' : 'warn'), pass ? 'Vượt mốc 180' : `Còn ${180 - rec.total} điểm nữa tới 180`),
+            delta != null ? h('span.pill.' + (delta >= 0 ? 'info' : 'bad'), (delta >= 0 ? '+' : '') + delta + ' so với lần trước') : null),
+          h('div.er-meta', `Đúng ${rec.right}/${rec.count} câu trắc nghiệm · ${U.fmtDur(rec.dur)}`))),
+      h('div.sec-cards', secEls),
+      parts.length ? h('div.card.mt.er-parts',
+        h('b', '📊 Phân tích từng phần'),
+        h('div.part-list', parts.map(x => h('div.part-row' + (x.weak ? '.weak' : ''),
+          h('span.pr-sec', { 'data-s': x.sec }, { L: 'Nghe', R: 'Đọc', W: 'Viết' }[x.sec]),
+          h('div.pr-main', h('div.pr-label', x.label.replace(/^Phần \d+ · /, '')), UI.progress(x.ratio, x.ratio >= 0.7 ? 'leaf' : x.ratio >= 0.5 ? 'gold' : '')),
+          h('span.pr-score', x.essay ? `${x.right}/40đ` : `${x.right}/${x.total}`),
+          x.weak ? h('button.btn.sm.ghost.pr-go', { onclick: go(x), title: (PRACTICE[x.kind] || [])[2] }, Icon.svg('rocket'), 'Luyện') : h('span.pr-ok', x.ratio >= 0.8 ? Icon.svg('check') : null)))),
+        parts.some(x => x.weak) ? h('div.small.muted.mt', 'Hai phần được đánh dấu là chỗ mất điểm nhiều nhất. Bấm "Luyện" để ôn đúng dạng đó.') : h('div.small.muted.mt', 'Không có phần nào dưới 80%. Rất đều tay!')) : null,
+      sc && sc.essay ? h('div.small.muted.mt', `Bài viết: ${sc.essay.pts}/40 điểm (${sc.essay.auto.n} chữ, ${sc.essay.auto.found.length} liên từ)`) : null,
       hist.length > 1 ? h('div.card.mt', h('b', '📈 Tiến bộ HSK' + rec.level), lineChart(hist.map(e => e.total))) : null,
-      h('div.card.tint-indigo.mt', { style: { textAlign: 'left' } }, h('b', '🧭 Gợi ý ôn tập'), h('ul', { style: { margin: '6px 0 0', paddingLeft: '18px', fontWeight: 500 } }, advice(rec).map(t => h('li', t)))),
+      h('div.card.tint-indigo.mt', h('b', '🧭 Gợi ý ôn tập'), h('ul.er-advice', advice(rec).map(t => h('li', t)))),
       h('div.col.mt',
         h('button.btn.block', { onclick: () => App.go('examreview', index) }, '🔍 Xem lại đáp án & lời dịch'),
         h('button.btn.indigo.block', { onclick: () => App.go('exam', rec.level, rec.no) }, '🔁 Làm lại đề này (câu hỏi mới)'),
         rec.no < Exam.COUNT ? h('button.btn.ghost.block', { onclick: () => App.go('exam', rec.level, rec.no + 1) }, `▶️ Sang đề ${rec.no + 1}`) : null,
         h('button.btn.ghost.block', { onclick: () => App.go('exams', rec.level) }, '📝 Danh sách đề'))));
+    const arc = g.querySelector('.sg-arc');
+    setTimeout(() => { arc.style.strokeDashoffset = arc.dataset.to; }, 150);
+    FX.countUp(g.querySelector('.sg-n'), rec.total, { dur: 1300, delay: 150, ticks: true });
+    secEls.forEach((c, i) => FX.countUp(c._num[0], c._num[1], { dur: 800, delay: 600 + i * 150 }));
     FX.sfx.done();
-    setTimeout(() => FX.confetti({ n: pass ? 220 : 100 }), 300);
+    if (pass) setTimeout(() => FX.sfx.stamp(), 1350);
+    setTimeout(() => FX.confetti({ n: pass ? 160 : 70 }), pass ? 1400 : 1300);
   }
   function advice(rec) {
     const out = [];

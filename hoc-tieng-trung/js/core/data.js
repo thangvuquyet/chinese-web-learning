@@ -30,7 +30,7 @@ const D = (() => {
       const list = [];
       for (const line of grp.w.split('\n').map(s => s.trim()).filter(Boolean)) {
         const o = addWord(parseLine(line), lv, gi, grp.t, grp.e);
-        if (o) list.push(o.id);
+        if (o) { if (grp.x) o.x = 1; list.push(o.id); }
       }
       groups.push({ lv, gi, title: grp.t, emo: grp.e, ids: list });
     });
