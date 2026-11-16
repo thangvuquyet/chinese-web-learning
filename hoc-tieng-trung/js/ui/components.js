@@ -223,12 +223,24 @@ const UI = (() => {
     view.appendChild(card);
   }
 
-  function celebrate(res) {
-    if (!res) return;
+  function award(xp) {
+    Store.addXP(xp);
+    celebrate();
+  }
+  function questCele(q) {
+    return {
+      kind: 'badge', title: 'Xong nhiệm vụ: ' + q.t, sub: '+' + q.xp + ' XP thưởng',
+      hero: h('div.seal.gold.lv-seal', h('b', Icon.svg('check')), h('small', '任务')),
+      sound: () => FX.sfx.badge(), confetti: { n: 80 }
+    };
+  }
+  function celebrate() {
     const p = Store.P(); if (!p) return;
+    const res = Store.takePending() || {};
     const badges = Store.checkBadges();
     const list = [];
     if (res.streakEvent) list.push(streakCele(p, res.streakEvent));
+    (res.quests || []).forEach(q => list.push(questCele(q)));
     if (res.goalReached) list.push(goalCele(p));
     if (res.levelUp) list.push({
       kind: 'level', title: 'Lên cấp ' + res.level,
@@ -298,5 +310,5 @@ const UI = (() => {
     const size = cls || (ch.length > 3 ? 'sm' : ch.length > 2 ? 'md' : '');
     return h('div.big-hz' + (size ? '.' + size : ''), { lang: 'zh-CN', 'aria-label': text }, ch.map(c => /[㐀-鿿]/.test(c) ? h('span.gz', h('span', c)) : h('span', c)));
   }
-  return { audioBtn, stars, ring, progress, topbar, tabbar, wordDetail, exampleBox, openWord, writerPanel, writerModal, loadHanziWriter, profileSwitcher, profileEditor, onboarding, celebrate, empty, backBtn, pageTitle, hz, applyNav };
+  return { audioBtn, stars, ring, progress, topbar, tabbar, wordDetail, exampleBox, openWord, writerPanel, writerModal, loadHanziWriter, profileSwitcher, profileEditor, onboarding, celebrate, award, empty, backBtn, pageTitle, hz, applyNav };
 })();

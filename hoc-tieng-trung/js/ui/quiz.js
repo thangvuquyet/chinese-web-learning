@@ -129,6 +129,8 @@ const R = (() => {
       box.append(orderUI(q, ctx));
     } else if (t === 'match') {
       box.append(matchUI(q, ctx));
+    } else if (t === 'speak') {
+      box.append(speakUI(q, ctx));
     } else if (t === 'essay') {
       box.append(essayUI(q, ctx));
     }
@@ -140,11 +142,16 @@ const R = (() => {
     const picked = Array.isArray(ctx.value) ? ctx.value.slice() : [];
     const area = h('div.order-area');
     const bank = h('div.order-bank');
+    const practice = ctx.mode === 'practice';
     const wrap = h('div',
       h('div.q-prompt', h('div.qtitle', q.title || 'Sắp xếp thành câu đúng'),
+        practice && q.listen ? UI.audioBtn(q.text, { big: true }) : null,
+        practice && q.listen ? h('div.row', { style: { justifyContent: 'center' } }, UI.audioBtn(q.text, { sm: true, rate: 0.7 }), h('span.small.muted', 'nghe chậm')) : null,
+        practice && !q.listen && q.vi ? h('div.trans-prompt', h('span.pill.info', 'Dịch'), h('span', q.vi)) : null,
         q.pic ? h('div', { style: { fontSize: '64px', lineHeight: 1.1 } }, q.pic) : null,
         q.given ? h('div', h('span.pill.info', { style: { fontSize: '16px' } }, h('span.zh', q.given))) : null),
       area, bank);
+    if (practice && q.listen && Store.settings().autoplay) setTimeout(() => Speech.speak(q.text), 300);
     const used = new Array(q.tokens.length).fill(false);
     const placedIdx = [];
     if (picked.length) {
@@ -214,6 +221,37 @@ const R = (() => {
     return h('div', h('div.q-prompt', h('div.qtitle', q.title)), grid);
   }
 
+  function speakUI(q, ctx) {
+    let tries = 0, best = null;
+    const skip = h('button.btn.ghost.sm.speak-skip', {
+      onclick: () => {
+        if (ctx.locked) return;
+        Store.settings().speakOff = Date.now() + 3600000; Store.save(true);
+        Speech.stopListen();
+        FX.toast('Đã tạm tắt bài nói trong 1 giờ');
+        ctx.onSkip && ctx.onSkip();
+      }
+    }, 'Lúc này không nói được');
+    const mic = Pron.mic({
+      target: q.text, compact: true, hint: 'Bấm micro rồi đọc to câu trên',
+      onResult: res => {
+        tries++;
+        if (!best || res.score > best.score) best = res;
+        const ok = res.score >= 0.7;
+        if (ok || tries >= 3) { ctx.locked = true; mic.lock(); skip.remove(); ctx.onAnswer(null, ok, { pron: best, tries }); }
+        else FX.toast(`Được ${Math.round(res.score * 100)}%, cần 70%. Thử lại nhé (còn ${3 - tries} lượt)`);
+      }
+    });
+    return h('div.q-speak',
+      h('div.q-prompt',
+        h('div.qtitle', q.title || 'Đọc to câu này'),
+        UI.audioBtn(q.text, { big: true }),
+        h('div.qsent', q.text),
+        Store.settings().showPy ? h('div.pyl', D.pinyin(q.text)) : null,
+        q.vi ? h('div.qsub', q.vi) : null),
+      mic, skip);
+  }
+
   function essayUI(q, ctx) {
     const val = ctx.value || { text: '', rubric: {} };
     const ta = h('textarea.essay', { placeholder: 'Gõ tiếng Trung tại đây (dùng bộ gõ pinyin)…', disabled: ctx.mode === 'review' });
@@ -243,7 +281,7 @@ const R = (() => {
 
   function runner(root, opts) {
     const queue = opts.questions.map((q, i) => ({ q, i }));
-    const total = queue.length;
+    let total = queue.length;
     const firstRes = {};
     let doneN = 0, combo = 0, maxCombo = 0, startAt = Date.now();
     clear(root);
@@ -272,20 +310,34 @@ const R = (() => {
       const { q, i } = queue[0];
       const ctx = { mode: 'practice', autoListen: true };
       ctx.onAnswer = (val, ok, extra) => answered(q, i, ok, extra);
+      ctx.onSkip = () => {
+        const before = queue.length;
+        for (let k = queue.length - 1; k >= 0; k--) if (queue[k].q.type === 'speak') queue.splice(k, 1);
+        total -= before - queue.length;
+        bar.firstChild.style.width = Math.round(doneN / Math.max(1, total) * 100) + '%';
+        next();
+      };
       render(q, area, ctx);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     function answered(q, i, ok, extra) {
       queue.shift();
-      if (!(i in firstRes)) firstRes[i] = ok;
+      const first = !(i in firstRes);
+      if (first) { firstRes[i] = ok; if (q.word) Store.noteMiss(q.word, ok); }
       Store.countAnswer(ok);
+      const retry = !ok && q.type !== 'speak';
+      if (!retry) doneN++;
       if (ok) {
-        doneN++; combo++; maxCombo = Math.max(maxCombo, combo);
+        combo++; maxCombo = Math.max(maxCombo, combo);
+        if (combo >= 3) Store.bump('combo', combo, true);
         FX.sfx.ok();
         if (combo >= 3) { U.clear(comboEl); comboEl.append(Icon.svg('flame'), ' x' + combo); comboEl.classList.remove('hot'); void comboEl.offsetWidth; comboEl.classList.add('hot'); FX.sfx.combo(combo); }
         if (combo === 3 || combo === 5 || combo % 10 === 0) { FX.banner(combo + ' câu đúng liên tiếp', combo >= 10 ? 'Phong độ rất ổn định' : combo >= 5 ? 'Đang vào guồng' : 'Combo'); if (combo >= 5) FX.confetti({ n: 50, y: innerHeight * 0.22 }); }
         bar.classList.remove('glow'); void bar.offsetWidth; bar.classList.add('glow');
         setTimeout(() => { const el = area.querySelector('.opt.right, .tone-btn.right, .order-area.right, .match-grid'); if (el) FX.burstAt(el, 18); }, 40);
+      } else if (!retry) {
+        combo = 0; comboEl.textContent = '';
+        FX.sfx.bad();
       } else {
         combo = 0; comboEl.textContent = '';
         FX.sfx.bad();
@@ -307,6 +359,7 @@ const R = (() => {
       const right = q.opts ? q.opts[q.ans] : null;
       let body = null;
       if (q.type === 'match') body = ok ? 'Ghép đúng hết rồi!' : `Hoàn thành (sai ${extra ? extra.mistakes : 0} lần ghép)`;
+      else if (q.type === 'speak') body = h('div', `Độ chuẩn ${Math.round(((extra && extra.pron && extra.pron.score) || 0) * 100)}%` + (ok ? '' : ' sau 3 lần đọc. Luyện thêm câu này ở mục Luyện nói nhé.'), h('div.zh', q.text));
       else if (q.type === 'order') body = h('span', h('span.zh', q.answer.join('') + (q.end || '。')), q.vi ? h('div', q.vi) : null);
       else {
         body = h('div',

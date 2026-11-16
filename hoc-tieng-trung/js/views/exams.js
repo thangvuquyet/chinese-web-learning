@@ -1,6 +1,6 @@
 (() => {
   const { h, clear } = U;
-  const PKEY = 'banhbao-exam-progress';
+  const PKEY = 'meo-hsk-exam-v2';
   const getProg = () => { try { return JSON.parse(localStorage.getItem(PKEY)); } catch (e) { return null; } };
   const setProg = v => { try { v ? localStorage.setItem(PKEY, JSON.stringify(v)) : localStorage.removeItem(PKEY); } catch (e) {} };
 
@@ -327,6 +327,9 @@
       const run = R.runner(holder, {
         questions: qs, onExit: () => App.go('exams'), onFinish: res => {
           const xp = 8 + Math.round(res.acc * 12);
+          const d = Store.dayRec();
+          if (/listen|pic/.test(kind)) d.listen = (d.listen || 0) + 1;
+          if (res.acc === 1) d.perfect = (d.perfect || 0) + 1;
           const ev = Store.addXP(xp);
           R.resultScreen(holder, res, { xp, buttons: [h('button.btn.block', { onclick: () => App.go('drill', kind) }, '🔁 Làm 8 câu khác'), h('button.btn.ghost.block', { onclick: () => App.go('exams') }, '📝 Về trang thi thử')] });
           UI.celebrate(ev);

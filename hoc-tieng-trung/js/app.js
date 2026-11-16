@@ -19,6 +19,7 @@ const App = (() => {
   }
   function render() {
     Speech.stop();
+    Speech.release();
     FX.closeAll();
     if (cleanup) { try { cleanup(); } catch (e) {} cleanup = null; }
     const root = document.getElementById('view');

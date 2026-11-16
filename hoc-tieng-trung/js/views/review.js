@@ -2,17 +2,27 @@ App.register('review', {
   render(root) {
     const { h, clear } = U;
     const p = Store.P();
-    let queue = [], stats = { 1: 0, 2: 0, 3: 0, 4: 0 }, startAt = 0, keyH = null;
+    let queue = [], stats = { 1: 0, 2: 0, 3: 0, 4: 0 }, startAt = 0, keyH = null, owed = 0;
     overview();
-    return () => { if (keyH) document.removeEventListener('keydown', keyH); };
+    return () => { if (keyH) document.removeEventListener('keydown', keyH); settle(); };
+
+    function settle() {
+      if (!owed) return;
+      Store.addMinutes(Math.max(1, Math.round((Date.now() - startAt) / 60000)));
+      UI.award(owed);
+      owed = 0;
+    }
 
     function overview() {
+      if (keyH) { document.removeEventListener('keydown', keyH); keyH = null; }
+      settle();
       clear(root);
       const due = D.dueCards(p);
       const counts = { new: 0, learning: 0, young: 0, mature: 0 };
       for (const c of Object.values(p.cards)) counts[SRS.bucket(c)]++;
       const total = Object.keys(p.cards).length;
       const soon = Object.values(p.cards).filter(c => c.due > Date.now() && c.due < Date.now() + 86400000).length;
+      const missN = Store.missList(p).length;
       root.append(
         UI.pageTitle('🃏', 'Ôn thẻ thông minh'),
         h('div.hero', FX.mascot(due.length ? 'think' : 'happy'), h('div.bubble.grow',
@@ -25,9 +35,27 @@ App.register('review', {
         total ? h('div.card.mt', h('div.small', { style: { fontWeight: 600, marginBottom: '6px' } }, `Tổng ${total} từ trong bộ ôn`), h('div.progress', h('i', { style: { width: (total ? counts.mature / total * 100 : 0) + '%' } })), h('div.small.muted', { style: { fontWeight: 500, marginTop: '6px' } }, 'Thanh xanh: tỷ lệ từ đã nhớ chắc')) : null,
         h('div.col.mt',
           due.length ? h('button.btn.block', { onclick: () => start(due) }, `▶️ Bắt đầu ôn ${Math.min(due.length, 150)} thẻ`) : null,
+          missN >= 3 ? h('button.btn.ghost.block', { onclick: mistakes }, `🎯 Luyện ${Math.min(missN, 15)} từ hay làm sai`) : null,
           total >= 4 ? h('button.btn.ghost.block', { onclick: freePractice }, '🎲 Luyện ngẫu nhiên 15 từ đã học') : null,
           !total ? h('button.btn.block', { onclick: () => App.go('path') }, '🗺️ Đến lộ trình') : null),
         h('div.card.tint-indigo.mt', h('div.tip-card', h('span.te', '🧠'), h('div', h('b', 'Cách chấm thẻ'), h('p', '😵 Quên: không nhớ ra · 😅 Khó: nhớ nhưng chật vật · 🙂 Được: nhớ ra bình thường · 😎 Dễ: nhớ ngay lập tức. Hãy trung thực, thuật toán FSRS sẽ tự xếp lịch tối ưu.')))));
+    }
+    function mistakes() {
+      clear(root);
+      const ws = Store.missList(p).slice(0, 15).map(id => D.byId[id]);
+      const qs = Q.mixedQuiz(ws, [], Math.max(8, Math.min(20, ws.length * 2)), Date.now());
+      const run = R.runner(root, {
+        questions: qs, onExit: overview, onFinish: res => {
+          for (const [wid, r] of Object.entries(res.perWord)) if (r.bad && p.cards[wid]) p.cards[wid] = SRS.grade(p.cards[wid], 1);
+          Store.save(true);
+          const xp = 6 + Math.round(res.acc * 12);
+          Store.addXP(xp);
+          const left = Store.missList(p).length;
+          R.resultScreen(root, res, { xp, title: res.acc >= 0.9 ? 'Sửa lỗi xong!' : 'Đã luyện lại lỗi sai', extra: h('div.card.tint-leaf', h('b', left ? `Còn ${left} từ trong danh sách hay sai` : 'Danh sách từ hay sai đã trống'), h('div.small.muted', { style: { fontWeight: 500 } }, 'Mỗi lần trả lời đúng ngay, từ đó được gỡ bớt khỏi danh sách.')), buttons: [h('button.btn.block', { onclick: overview }, '← Quay lại')] });
+          UI.celebrate();
+        }
+      });
+      root._cleanup = run.cleanup;
     }
     function freePractice() {
       clear(root);
@@ -80,7 +108,7 @@ App.register('review', {
         grades.appendChild(h('button.grade.' + cls, { onclick: () => rate(g) }, label, h('small', U.fmtInterval(pv[g]))));
       });
       root.append(
-        h('div.quiz-top', h('button.btn.ghost.icon.sm', { onclick: overview }, '✕'), UI.progress(1 - totalLeft / (totalLeft + stats[1] + stats[2] + stats[3] + stats[4] || 1), 'indigo'), h('span.combo', `${totalLeft} thẻ`)),
+        h('div.quiz-top', h('button.btn.ghost.icon.sm', { onclick: overview, title: 'Dừng ôn, giữ kết quả các thẻ đã chấm' }, '✕'), UI.progress(1 - totalLeft / (totalLeft + stats[1] + stats[2] + stats[3] + stats[4] || 1), 'indigo'), h('span.combo', `${totalLeft} thẻ`)),
         flash, reveal, grades,
         h('p.center.small.muted', { style: { fontWeight: 500 } }, 'Phím tắt: ', h('span.kbd', 'Space'), ' lật · ', h('span.kbd', '1–4'), ' chấm'));
       if (!reverse && Store.settings().autoplay) setTimeout(() => Speech.speak(w.hz), 250);
@@ -97,9 +125,13 @@ App.register('review', {
         p.cards[id] = SRS.grade(card, g, now);
         stats[g]++;
         p.stats.reviews++;
+        const d = Store.dayRec(p);
+        d.reviews = (d.reviews || 0) + 1;
+        Store.noteMiss(id, g >= 3);
         queue.shift();
         if (p.cards[id].due - now < 20 * 60000) queue.splice(Math.min(queue.length, 3 + Math.floor(Math.random() * 4)), 0, id);
-        Store.addXP(1);
+        owed++;
+        Store.save();
         if (g >= 3) FX.sfx.ok(); else FX.sfx.tap();
         next();
       }
@@ -110,12 +142,14 @@ App.register('review', {
       document.addEventListener('keydown', keyH);
     }
     function done() {
+      if (keyH) { document.removeEventListener('keydown', keyH); keyH = null; }
       const n = stats[1] + stats[2] + stats[3] + stats[4];
       Store.addMinutes(Math.max(1, Math.round((Date.now() - startAt) / 60000)));
-      const ev = Store.addXP(5);
+      Store.addXP(owed + 5);
+      owed = 0;
       clear(root);
       R.resultScreen(root, { acc: n ? (stats[3] + stats[4]) / n : 1, secs: Math.round((Date.now() - startAt) / 1000) }, {
-        xp: n + 5, title: 'Ôn xong rồi! 🎉', hideStars: true,
+        xp: n + 5, title: 'Ôn xong rồi!', hideStars: true,
         extra: h('div.grid4', [[1, '😵'], [2, '😅'], [3, '🙂'], [4, '😎']].map(([g, e]) => h('div.stat', h('b', e + ' ' + stats[g]), h('span', ['', 'Quên', 'Khó', 'Được', 'Dễ'][g])))),
         buttons: [h('button.btn.block', { onclick: () => App.go('path') }, '🗺️ Học bài mới'), h('button.btn.ghost.block', { onclick: () => App.go('home') }, '🏠 Trang chủ')]
       });

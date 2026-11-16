@@ -52,7 +52,9 @@ App.register('learn', {
       const prev = node.custom ? { done: true } : (p.nodes[node.id] || {});
       if (!node.custom) p.nodes[node.id] = { done: true, stars: Math.max(prev.stars || 0, st), best: Math.max(prev.best || 0, res.acc), at: Date.now() };
       p.stats.lessons++;
-      if (res.acc === 1) p.stats.perfect++;
+      const d = Store.dayRec(p);
+      d.lessons = (d.lessons || 0) + 1;
+      if (res.acc === 1) { p.stats.perfect++; d.perfect = (d.perfect || 0) + 1; }
       for (const w of words) {
         const pw = res.perWord[w.id] || { ok: 1, bad: 0 };
         const g = pw.bad === 0 ? 3 : pw.bad === 1 ? 2 : 1;
@@ -134,6 +136,7 @@ App.register('check', {
         FX.toast(`⚡ Đã vượt cấp! Thêm ${added} từ vào ôn tập giãn dài.`);
       }
       p.checks[id] = Math.max(p.checks[id] || 0, res.acc);
+      if (ok) { const d = Store.dayRec(p); d.lessons = (d.lessons || 0) + 1; if (res.acc === 1) d.perfect = (d.perfect || 0) + 1; }
       Store.save(true);
       const ev = Store.addXP(xp);
       R.resultScreen(root, res, {

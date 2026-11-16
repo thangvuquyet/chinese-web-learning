@@ -370,8 +370,10 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 | Hán Việt + quy luật đoán thanh | Chuyển di tích cực từ tiếng mẹ đẻ | Ngữ âm lịch sử Hán–Việt |
 | Bài kiểm tra cuối chặng, vượt cấp | Tự kiểm tra, phản hồi | Dunlosky 2013 |
 | 20 đề thi thử sinh ngẫu nhiên mỗi lần | Luyện kiểm tra, tránh học thuộc đáp án | Dunlosky 2013 |
-| Luyện nói nhại + nhận dạng giọng | Shadowing | Kadota 2007; Hamada 2016 |
-| Chuỗi ngày + thẻ đóng băng + mục tiêu nhỏ | Hình thành thói quen | Lally 2010 |
+| Luyện nói nhại + chấm từng âm tiết (âm đầu, vần, thanh) | Shadowing, phản hồi chi tiết | Kadota 2007; Hamada 2016 |
+| Bài đọc to, nghe-xếp câu, dịch-xếp câu ngay trong bài học | Luyện cả 4 kỹ năng trong một bài, học xen kẽ | Nation 2007; Kornell & Bjork 2008 |
+| Luyện lại từ hay sai | Tập trung vào chỗ yếu | Dunlosky 2013 |
+| Chuỗi ngày + thẻ đóng băng + mục tiêu nhỏ + 3 nhiệm vụ mỗi ngày | Hình thành thói quen | Lally 2010 |
 | Tự chọn mục tiêu, tự chọn bài | Tự chủ (SDT) | Deci & Ryan 2000 |
 | Sao, cấp độ, màn hình ăn mừng (chuỗi ngày, mục tiêu ngày, lên cấp, huy hiệu, combo) | Năng lực (SDT), phản hồi tích cực tức thì | Deci & Ryan 2000 |
 | Không trừ mạng, sai thì giải thích | Tránh làm giảm động lực bên trong | Ryan & Deci |
@@ -392,12 +394,28 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 
 ### 9.2 Luồng học mỗi ngày
 1. Lần đầu mở app, nhập tên (mặc định "Huyền Anh"). Có thể đổi tên và hình đại diện trong Cài đặt.
-2. **Trang chủ** gợi ý: *Ôn thẻ đến hạn → Học bài tiếp theo → Thử thách nghe 5 phút.*
-3. **Lộ trình:** các bài nối thành con đường. Mỗi bài gồm học thẻ từ mới (8–14 từ), luyện tập trộn khoảng 15–20 câu (câu sai được hỏi lại), rồi nhận sao và XP. Cứ khoảng 8 bài có một **bài kiểm tra nhỏ** (20 câu, đạt từ 70%), cuối mỗi chặng có **bài thi cuối chặng** (30 câu).
+2. **Trang chủ:**
+   - gợi ý *Ôn thẻ đến hạn → Học bài tiếp theo → Thử thách nghe 5 phút*;
+   - **3 nhiệm vụ hôm nay**, mỗi nhiệm vụ xong được thưởng 10 XP. Nhiệm vụ đầu luôn là đạt mục tiêu XP; 2 nhiệm vụ còn lại đổi mỗi ngày (ôn 20 thẻ, xong 1 bài, đọc 5 câu đạt 80%, đúng 30 câu, 8 câu đúng liên tiếp, một bài không sai, 1 lượt luyện nghe).
+3. **Lộ trình:** các bài nối thành con đường.
+   - Mỗi bài gồm học thẻ từ mới (8–14 từ), rồi luyện tập trộn khoảng 20 câu, xong nhận sao và XP.
+   - Các dạng câu trong bài: chọn nghĩa, chọn chữ Hán, nghe chọn từ, chọn pinyin, nghe chọn thanh, điền từ vào câu, ghép cặp, **dịch câu tiếng Việt bằng cách xếp từ**, **nghe rồi xếp lại câu**, **đọc to một câu** (app chấm, cần đạt 70%, được thử 3 lần).
+   - Câu sai được hỏi lại ở cuối, riêng bài đọc to không bắt làm lại. Nếu đang ở chỗ không nói được, bấm **"Lúc này không nói được"**: app bỏ bài đọc to trong 1 giờ. Muốn tắt hẳn: Cài đặt → "Có bài đọc to trong mỗi bài học".
+   - Cứ khoảng 8 bài có một **bài kiểm tra nhỏ** (20 câu, đạt từ 70%), cuối mỗi chặng có **bài thi cuối chặng** (30 câu).
+   - Chuỗi ngày có **thẻ đóng băng**: lỡ 1–2 ngày thì thẻ tự giữ chuỗi (mỗi ngày lỡ dùng 1 thẻ). Cứ đủ 7 ngày liên tiếp được tặng thêm 1 thẻ, giữ tối đa 3 thẻ.
 4. **Ngữ pháp:** mỗi điểm có giải thích tiếng Việt, ví dụ có đọc mẫu, lỗi hay sai, và bài tập.
 5. **Phát âm và chữ Hán:** luyện thanh điệu, đoán thanh nhờ Hán Việt, bộ thủ, xem và tập viết nét.
-6. **Luyện nói:** nghe, nói theo, app chấm độ giống.
-7. **Thi thử:**
+6. **Ôn thẻ:** lật thẻ, tự chấm 4 mức theo FSRS. Dừng giữa chừng vẫn giữ kết quả và XP các thẻ đã chấm. Khi có từ 3 từ hay làm sai trở lên sẽ hiện nút **"Luyện từ hay làm sai"**; mỗi lần trả lời đúng ngay, từ đó được gỡ bớt khỏi danh sách.
+7. **Luyện nói** (cần Chrome hoặc Edge, có Internet, cho phép micro):
+   - **Đọc theo câu:** nghe mẫu (thường hoặc chậm), đọc lại, có thể ẩn chữ.
+   - **Shadowing:** app đọc từng câu của một hội thoại hay đoạn văn, bạn nhại lại ngay, app chấm từng câu. Cuối lượt có điểm trung bình và nút luyện lại các câu dưới 80%.
+   - **Trả lời câu hỏi (HSKK):** trả lời tự do, bấm micro lần nữa khi nói xong. App chấm 4 tiêu chí: độ dài (từ 50 chữ), từ nối (từ 2 từ), đúng chủ đề, tốc độ nói. Có câu trả lời mẫu để so.
+   - **Cách chấm phát âm:**
+     - App dùng bộ nhận dạng giọng nói tiếng Trung của trình duyệt, rồi so **từng âm tiết** với câu mẫu.
+     - Chữ xanh là đúng. Chữ vàng là đúng âm nhưng sai thanh (ví dụ 买 mǎi nghe ra mài). Chữ cam là lẫn âm gần giống, kèm mẹo sửa (zh/z, ch/c, sh/s, n/l, an/ang, en/eng, in/ing…). Chữ đỏ là không nghe ra.
+     - Chữ đồng âm (他/她) không bị trừ điểm; âm 儿 cuối từ không bắt buộc.
+     - Trên máy tính, app ghi lại giọng bạn để bấm **"Nghe lại giọng mình"** so với mẫu.
+8. **Thi thử:**
    - 20 đề HSK3 + 20 đề HSK4 theo định dạng HSK 3.0, có giờ, chấm theo thang 300. **Mỗi lần làm lại, câu hỏi được sinh mới.**
    - Màn tổng kết sau khi nộp bài:
      - vòng điểm có vạch mốc 180 và so điểm với lần trước;
@@ -405,7 +423,7 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
      - bảng phân tích **từng phần của đề**, đánh dấu 2 phần mất điểm nhiều nhất, kèm nút **Luyện** đưa thẳng tới dạng bài đó;
      - khi đỗ có màn ăn mừng với con dấu 过.
    - Xem lại từng câu kèm lời dịch và giải thích.
-8. **Tiến độ:** biểu đồ XP 14 ngày, điểm thi thử, số từ đã thuộc, huy hiệu.
+9. **Tiến độ:** biểu đồ XP 14 ngày, điểm thi thử, số từ đã thuộc, huy hiệu.
 
 ### 9.3 Nội dung có trong app
 
@@ -417,7 +435,7 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 | Câu ví dụ có dịch (dùng cho thẻ từ, điền từ, sắp xếp câu) | 567 câu |
 | Bài nghe | 42 câu chọn tranh, 46 hội thoại ngắn và 30 hội thoại dài HSK3, 57 hội thoại và 44 đoạn độc thoại HSK4 |
 | Bài đọc và viết | 30 bài đọc HSK3, 44 bài đọc HSK4, 14 bài điền câu vào đoạn, 30 câu nhìn tranh, 20 đề viết có bài mẫu |
-| Luyện nói | 18 câu hỏi HSKK có câu trả lời mẫu, nói theo câu bất kỳ, shadowing hội thoại |
+| Luyện nói | 18 câu hỏi HSKK có câu trả lời mẫu, đọc theo câu ví dụ HSK2–4, shadowing hội thoại và đoạn văn, đều có chấm phát âm |
 | Đề thi thử | 20 đề HSK3 + 20 đề HSK4; mỗi lần làm lại khoảng 70% câu hỏi được thay mới |
 
 ### 9.4 Sao lưu
@@ -429,7 +447,12 @@ Vào Cài đặt → **Xuất tiến độ** để lưu file `.json`. Sang máy 
 - Kho từ đã đủ đề cương HSK 3.0 cấp 1–4. Danh sách đề cương lấy từ một trang luyện thi tổng hợp lại, không phải file gốc của CTI, nên vẫn có thể lệch vài từ.
 - 846 từ bổ sung chưa có câu ví dụ riêng: thẻ từ của chúng chỉ hiện ví dụ khi trong kho câu có sẵn câu chứa từ đó. Bài luyện vẫn đủ các dạng nghĩa, nghe, chữ Hán, pinyin.
 - **Nhập từ** vẫn dùng được để thêm từ trong giáo trình đang học.
-- Phần viết đoạn văn và nói được chấm bằng **bảng tự đánh giá** kèm bài mẫu, không thay được giáo viên chấm.
+- Phần viết đoạn văn được chấm bằng **bảng tự đánh giá** kèm bài mẫu, không thay được giáo viên chấm.
+- **Chấm phát âm có giới hạn:**
+  - Bộ nhận dạng giọng nói hay "đoán giúp" theo ngữ cảnh, nên đôi khi bỏ qua lỗi thanh nhỏ. Điểm cao chưa chắc đã hoàn hảo, nhưng chữ bị tô vàng, cam, đỏ thì gần như chắc chắn cần sửa.
+  - Hãy nghe lại giọng mình để tự so với giọng mẫu.
+  - Firefox và Safari trên iPhone chưa hỗ trợ nhận dạng giọng nói. Trên điện thoại Android, app chấm được nhưng không ghi lại giọng.
+  - Khi mở bằng file:// trình duyệt có thể hỏi quyền micro nhiều lần. Đưa app lên một host https (ví dụ GitHub Pages) thì chỉ hỏi một lần.
 
 ### 9.6 Giao diện và hiệu ứng
 - **Phong cách "Mực & Ngọc":**
@@ -446,6 +469,7 @@ Vào Cài đặt → **Xuất tiến độ** để lưu file `.json`. Sang máy 
     - giữ chuỗi ngày (ngọn lửa và lịch tuần);
     - đạt mục tiêu ngày (vòng tiến độ);
     - lên cấp (con dấu cấp);
+    - xong nhiệm vụ ngày (con dấu 任务, +10 XP);
     - mở huy hiệu (huy chương lấp lánh).
 - **Tắt hiệu ứng:** Cài đặt → tắt "Hoạt hình & pháo giấy" nếu muốn gọn. Máy đặt chế độ giảm chuyển động cũng được tôn trọng.
 
@@ -454,7 +478,8 @@ Pinyin dưới câu ví dụ được ghi **theo từ**:
 - Tra kho từ đã soát kỹ: 1.205 từ đối chiếu với thư viện pinyin chuẩn, 846 từ bổ sung lấy pinyin từ danh sách đề cương.
 - Áp quy tắc ngữ cảnh cho chữ đa âm: 得 de/děi, 长 cháng/zhǎng, 还 hái/huán, 过 guò/guo, 地 de/dì, 只 zhǐ/zhī, 种 zhǒng/zhòng.
 - Áp biến điệu 一/不 (yí ge, bú duì).
-- Thanh nhẹ và âm 儿 ghi như sách giáo khoa (māma, nǎr).
+- Thanh nhẹ và âm 儿 ghi như sách giáo khoa (māma, nǎr, yìdiǎnr, wánr).
+- Câu không có trong kho câu (hội thoại, đoạn nghe) được tách từ theo cách ít từ nhất, nên 十分钟 đọc là shí fēnzhōng (không bị tách thành 十分 + 钟), 打八折 là dǎ bā zhé.
 
 Ví dụ: 女儿长得很像妈妈 → *Nǚ'ér zhǎng de hěn xiàng māma.* Câu ví dụ của từ đa âm chỉ lấy câu có đúng cách đọc đó.
 

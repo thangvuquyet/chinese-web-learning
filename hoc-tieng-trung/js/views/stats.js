@@ -52,15 +52,5 @@ App.register('stats', {
     root.append(h('div.sec-title', `🏅 Huy hiệu (${Object.keys(p.badges).length}/${Store.BADGES.length})`),
       h('div.grid4', Store.BADGES.map(([id, e, name, desc]) => h('div.badge' + (p.badges[id] ? '.on' : '.off'), { title: desc }, h('span.be', e), h('b', name), h('small', p.badges[id] ? U.fmtDate(p.badges[id]) : desc)))));
 
-    const all = Store.all();
-    if (all.length > 1) {
-      const rows = [
-        ['Cấp', x => Store.levelOf(x.xp)], ['Tổng XP', x => x.xp], ['Chuỗi hiện tại', x => Store.streakView(x).n + ' 🔥'], ['Chuỗi dài nhất', x => x.streak.best],
-        ['Từ đã học', x => Object.keys(x.cards).length], ['Ngữ pháp', x => Object.keys(x.grammar).length], ['Đề đã làm', x => x.exams.length],
-        ['HSK3 cao nhất', x => Math.max(0, ...x.exams.filter(e => e.level === 3).map(e => e.total)) || '–'], ['HSK4 cao nhất', x => Math.max(0, ...x.exams.filter(e => e.level === 4).map(e => e.total)) || '–']
-      ];
-      root.append(h('div.sec-title', '💑 Hai đứa mình'),
-        h('div.card.tint-indigo', h('table.simple', h('tr', h('th', ''), ...all.map(x => h('th', x.avatar + ' ' + x.name))), ...rows.map(([n, f]) => h('tr', h('td', { style: { fontWeight: 600 } }, n), ...all.map(x => h('td', String(f(x)))))))));
-    }
   }
 });

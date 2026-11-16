@@ -63,7 +63,9 @@ App.register('grammar', {
       const st = res.acc >= 0.9 ? 3 : res.acc >= 0.7 ? 2 : 1;
       const pn = p.nodes[nodeId] || {};
       p.nodes[nodeId] = { done: true, stars: Math.max(pn.stars || 0, st), best: Math.max(pn.best || 0, res.acc), at: Date.now() };
-      if (res.acc === 1) p.stats.perfect++;
+      const d = Store.dayRec(p);
+      d.lessons = (d.lessons || 0) + 1;
+      if (res.acc === 1) { p.stats.perfect++; d.perfect = (d.perfect || 0) + 1; }
       Store.save(true);
       const xp = 12 + Math.round(res.acc * 8);
       const ev = Store.addXP(xp);

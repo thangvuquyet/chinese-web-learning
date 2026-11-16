@@ -70,6 +70,11 @@ const D = (() => {
   }
   const pyDict = {};
   for (const w of words) if (!pyDict[w.hz]) pyDict[w.hz] = w.py;
+  const charPy = {};
+  for (const w of [...words].sort((a, b) => a.chars.length - b.chars.length)) {
+    const parts = U.splitPy(w.py, w.chars.length);
+    if (parts) w.chars.forEach((c, i) => { if (!charPy[c] && parts[i].py) charPy[c] = parts[i].py; });
+  }
   const NUM = /^[零一二三四五六七八九十百千万两几半第\d]/;
   const SUBJ = new Set(['我', '你', '他', '她', '它', '我们', '你们', '他们', '她们', '咱们', '大家', '您', '谁', '也', '还', '就', '都', '可能', '一定', '总', '只', '又']);
   const firstTone = py => { const t = U.tonesOf(py || ''); return t.length ? t[0] : 5; };
@@ -91,7 +96,7 @@ const D = (() => {
         if (p) { hit = [L, p]; break; }
       }
       if (hit) { out.push(hit[1]); i += hit[0]; }
-      else { out.push(/[㐀-鿿]/.test(ch[i]) ? '·' : ch[i]); i++; }
+      else { out.push(/[㐀-鿿]/.test(ch[i]) ? (charPy[ch[i]] || '·') : ch[i]); i++; }
     }
     return out.join('');
   }
@@ -112,7 +117,8 @@ const D = (() => {
       const t = firstTone(basePy(n));
       return t === 4 || t === 5 ? 'yí' : 'yì';
     },
-    '不': (p, n) => firstTone(basePy(n)) === 4 ? 'bú' : 'bù'
+    '不': (p, n) => firstTone(basePy(n)) === 4 ? 'bú' : 'bù',
+    '儿': p => p ? 'r' : 'ér'
   };
   function readAt(toks, i) {
     const b = toks.map(clean);
@@ -128,21 +134,34 @@ const D = (() => {
     if (RULES[t]) return RULES[t](p, /[，。？！：；]$/.test(toks[i]) ? '' : n, n2);
     return basePy(t);
   }
+  const known = t => !!(byHz[t] || tokPy[t]);
+  function cutHan(run) {
+    const ch = [...run], n = ch.length;
+    const f = new Array(n + 1).fill(Infinity), nx = new Array(n + 1).fill(0);
+    f[n] = 0;
+    for (let i = n - 1; i >= 0; i--) {
+      for (let L = Math.min(5, n - i); L >= 1; L--) {
+        const sub = ch.slice(i, i + L).join('');
+        const c = L > 1 ? (known(sub) ? 1 : Infinity) : (known(sub) ? 1 : charPy[sub] ? 1.6 : 3);
+        if (c + f[i + L] < f[i]) { f[i] = c + f[i + L]; nx[i] = L; }
+      }
+    }
+    const out = [];
+    for (let i = 0; i < n; i += nx[i]) out.push(ch.slice(i, i + nx[i]).join(''));
+    return out;
+  }
   function segment(text) {
     const out = [];
-    const ch = [...text];
-    let i = 0;
-    while (i < ch.length) {
-      if (!/[㐀-鿿]/.test(ch[i])) { if (out.length) out[out.length - 1] += ch[i]; else out.push(ch[i]); i++; continue; }
-      let L = Math.min(5, ch.length - i);
-      for (; L > 1; L--) { const sub = ch.slice(i, i + L).join(''); if (byHz[sub] || tokPy[sub]) break; }
-      out.push(ch.slice(i, i + L).join(''));
-      i += L;
+    for (const run of String(text).match(/[㐀-鿿]+|[^㐀-鿿]+/g) || []) {
+      if (/[㐀-鿿]/.test(run[0])) out.push(...cutHan(run));
+      else if (out.length) out[out.length - 1] += run;
+      else out.push(run);
     }
     return out;
   }
   const sentByText = {};
   sentences.forEach(s => { sentByText[s.text] = s; });
+  const toksOf = text => sentByText[text] ? sentByText[text].toks : segment(text);
   const PMAP = { '，': ',', '。': '.', '？': '?', '！': '!', '：': ':', '；': ';', '、': ',', '“': '"', '”': '"', '…': '…' };
   function pinyin(x) {
     const s = typeof x === 'string' ? sentByText[x] : x;
@@ -153,7 +172,8 @@ const D = (() => {
       const tail = (raw.match(/[，。？！：；、“”"…—]+$/) || [''])[0].replace(/[—]/g, '');
       const head = (raw.match(/^[“"—]+/) || [''])[0].replace(/[—]/g, '');
       const fix = str => [...str].map(c => PMAP[c] || c).join('');
-      if (py || tail) parts.push(fix(head) + py + fix(tail));
+      if (py === 'r' && clean(raw) === '儿' && parts.length) parts[parts.length - 1] += 'r' + fix(tail);
+      else if (py || tail) parts.push(fix(head) + py + fix(tail));
     });
     let out = parts.join(' ').replace(/\s+([,.?!:;])/g, '$1');
     out = out.replace(/(^|[.?!]\s+)([a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜ])/g, (m, a, b) => a + b.toUpperCase());
@@ -277,5 +297,5 @@ const D = (() => {
   }
   function wordPool(lv) { return words.filter(w => w.lv === lv); }
 
-  return { POS, words, byId, byHz, groups, sentences, tokIndex, grammar, gById, examplesFor, pinyin, readAt, wordAt, STAGES, nodes, nodeById, nodeWords, nodeGrammar, isDone, nodeUnlocked, stageUnlocked, currentNode, stageProgress, nextNode, dueCards, wordPool, loadCustom, addWord };
+  return { POS, words, byId, byHz, groups, sentences, tokIndex, grammar, gById, examplesFor, pinyin, readAt, wordAt, segment, toksOf, STAGES, nodes, nodeById, nodeWords, nodeGrammar, isDone, nodeUnlocked, stageUnlocked, currentNode, stageProgress, nextNode, dueCards, wordPool, loadCustom, addWord };
 })();

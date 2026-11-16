@@ -129,6 +129,41 @@ const U = (() => {
     return s;
   }
 
+  const FINALS = ['iang', 'iong', 'uang', 'ueng', 'ang', 'eng', 'ing', 'ong', 'ian', 'iao', 'uai', 'uan', 'üan', 'ai', 'ei', 'ao', 'ou', 'an', 'en', 'er', 'in', 'un', 'ün', 'ia', 'ie', 'iu', 'ua', 'uo', 'ui', 'üe', 'ue', 'a', 'o', 'e', 'i', 'u', 'ü'];
+  const INITS = ['zh', 'ch', 'sh', 'b', 'p', 'm', 'f', 'd', 't', 'n', 'l', 'g', 'k', 'h', 'j', 'q', 'x', 'r', 'z', 'c', 's', 'y', 'w'];
+  const SYL = new Set(['r', 'n', 'ng', 'm', 'hm', 'hng']);
+  for (const f of FINALS) { SYL.add(f); for (const i of INITS) SYL.add(i + f); }
+  function splitPy(py, n) {
+    const raw = py.toLowerCase().replace(/[^a-zāáǎàēéěèīíǐìōóǒòūúǔùüǖǘǚǜ·]/g, '');
+    const base = stripTones(raw).replace(/v/g, 'ü');
+    let memo = {}, strict = true;
+    function go(pos, k) {
+      const key = pos + ':' + k;
+      if (key in memo) return memo[key];
+      let res = null;
+      if (pos === base.length) res = k === 0 ? [] : null;
+      else if (k > 0) {
+        if (base[pos] === '·') { const r = go(pos + 1, k - 1); res = r ? [[pos, pos + 1], ...r] : null; }
+        else for (let L = Math.min(6, base.length - pos); L >= 1 && !res; L--) {
+          const sub = base.slice(pos, pos + L);
+          if (!SYL.has(sub)) continue;
+          if (strict && pos > 0 && /^[aoeiuü]/.test(sub) && base[pos - 1] !== '·' && !(sub === 'r' || sub === 'er')) continue;
+          const r = go(pos + L, k - 1);
+          if (r) res = [[pos, pos + L], ...r];
+        }
+      }
+      return (memo[key] = res);
+    }
+    let cut = go(0, n);
+    if (!cut) { memo = {}; strict = false; cut = go(0, n); }
+    if (!cut) return null;
+    return cut.map(([a, b]) => {
+      const s = raw.slice(a, b);
+      if (s === '·') return { py: '', base: '', tone: 0 };
+      const t = tonesOf(s);
+      return { py: s, base: base.slice(a, b), tone: t.length ? t[0] : 5 };
+    });
+  }
   const PUNCT = /[，。？！：；、“”"‘’（）《》…—,.?!:;()\s]/g;
   const onlyHan = s => (s || '').replace(PUNCT, '');
   function tokens(seg) {
@@ -203,5 +238,5 @@ const U = (() => {
   }
   const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
-  return { $, $$, h, clear, hash, rng, shuffle, pick, sample, uniq, clamp, sleep, tonesOf, setToneAt, toneVariants, stripTones, onlyHan, tokens, bare, joinSeg, countHan, viTone, viBase, hvEntering, predictTone, dayKey, daysBetween, fmtDur, fmtInterval, fmtDate, similarity, debounce };
+  return { splitPy, $, $$, h, clear, hash, rng, shuffle, pick, sample, uniq, clamp, sleep, tonesOf, setToneAt, toneVariants, stripTones, onlyHan, tokens, bare, joinSeg, countHan, viTone, viBase, hvEntering, predictTone, dayKey, daysBetween, fmtDur, fmtInterval, fmtDate, similarity, debounce };
 })();

@@ -122,25 +122,42 @@ const Q = (() => {
       for (const fn of fns) { const q = fn(w, rnd); if (q && !out.some(o => o.word === w.id && o.kind === q.kind)) { out.push(q); break; } }
     }
     let sentQ = 0;
+    const kinds = U.shuffle(['fill', 'trans', 'hear', 'fill'], rnd);
+    const usedS = new Set();
     for (const w of U.shuffle(words, rnd)) {
-      if (sentQ >= 3) break;
-      const ss = sentFor(w, w.lv + 1);
+      if (sentQ >= 4) break;
+      const ss = sentFor(w, w.lv + 1).filter(s => !usedS.has(s.text));
       if (!ss.length) continue;
       const s = ss[Math.floor(rnd() * ss.length)];
-      const q = sentQ % 2 === 0 ? fill(s, w, rnd) : order(s, rnd, { word: w.id });
-      if (q) { out.push(q); sentQ++; }
+      const k = kinds[sentQ];
+      let q = k === 'fill' ? fill(s, w, rnd) : order(s, rnd, k === 'hear' ? { word: w.id, listen: true, title: 'Nghe rồi xếp lại câu' } : { word: w.id, title: 'Xếp các từ thành câu tiếng Trung' });
+      if (!q && k !== 'fill') q = fill(s, w, rnd);
+      if (q) { out.push(q); sentQ++; usedS.add(s.text); }
     }
     const mixed = U.shuffle(out, rnd);
     const m = match(words, rnd);
     if (m) mixed.splice(Math.min(mixed.length, 4 + Math.floor(rnd() * 4)), 0, m);
+    const sp = typeof Pron !== 'undefined' && Pron.enabled() ? speakItem(words, rnd) : null;
+    if (sp) mixed.splice(Math.max(3, mixed.length - 3 - Math.floor(rnd() * 3)), 0, sp);
     return mixed;
+  }
+  function speakItem(words, rnd) {
+    const cands = [];
+    for (const w of U.shuffle(words, rnd)) {
+      const s = sentFor(w, w.lv).find(x => U.countHan(x.text) >= 4 && U.countHan(x.text) <= 12);
+      if (s) cands.push({ text: s.text, vi: s.vi, sw: w.id });
+      else if ([...w.hz].length >= 2) cands.push({ text: w.hz, vi: w.vi, sw: w.id });
+      if (cands.length >= 2) break;
+    }
+    const c = cands[0];
+    return c ? { type: 'speak', kind: 'speak', title: 'Đọc to câu này', text: c.text, vi: c.vi, sw: c.sw } : null;
   }
   function grammarQuiz(g, seed) {
     const rnd = U.rng(seed || Math.random() * 1e9);
     const out = g.ex.map(ex => grammarEx(g, ex, rnd));
     for (const [seg, vi] of U.shuffle(g.examples, rnd).slice(0, 2)) {
       const s = D.sentences.find(x => x.seg === seg);
-      const q = s && order(s, rnd, { gid: g.id });
+      const q = s && order(s, rnd, { gid: g.id, title: 'Xếp các từ thành câu tiếng Trung' });
       if (q) out.push(q);
     }
     return U.shuffle(out, rnd);

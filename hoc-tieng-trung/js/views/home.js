@@ -26,6 +26,17 @@ App.register('home', {
       h('div.row.wrap.mt.small.meta', { style: { color: 'var(--ink2)', gap: '6px 16px' } },
         h('span', `🔥 Chuỗi: ${sv.n} ngày`), h('span', `❄️ Đóng băng: ${p.streak.freeze}`), h('span', `🏅 Cao nhất: ${p.streak.best}`))));
 
+    const QI = { goal: 'target', rev20: 'cards', lesson: 'route', speak5: 'mic', ok30: 'star', combo8: 'flame', perfect: 'trophy', listen: 'volume' };
+    const qs = Store.quests(p);
+    const qDone = qs.filter(q => q.done).length;
+    root.appendChild(h('div.card.mt',
+      h('div.row.between.mb', h('b', 'Nhiệm vụ hôm nay'), h('span.small.muted', { style: { fontWeight: 600 } }, `${qDone}/${qs.length} · mỗi nhiệm vụ +${qs[0] ? qs[0].xp : 10} XP`)),
+      h('div.quests', qs.map(q => h('div.quest' + (q.done ? '.done' : ''),
+        h('span.qi', Icon.svg(q.done ? 'check' : QI[q.id] || 'star')),
+        h('div.qb', h('b', q.t), UI.progress(q.v / q.target, q.done ? '' : 'gold')),
+        h('span.qv', q.done ? 'Xong' : `${q.v}/${q.target}`))))));
+    Store.save();
+
     const examDate = Store.settings().examDate;
     if (examDate) {
       const left = U.daysBetween(U.dayKey(), examDate);
@@ -43,7 +54,7 @@ App.register('home', {
       h('button.action', { onclick: () => App.go('drill', 'listen3') },
         h('span.ai.leaf', '🎧'), h('div', h('b', 'Thử thách nghe 5 phút'), h('span.sub', '8 đoạn hội thoại HSK3, chấm ngay'))),
       h('button.action', { onclick: () => App.go('speak') },
-        h('span.ai.clay', '🎤'), h('div', h('b', 'Luyện nói & shadowing'), h('span.sub', 'Nói theo, app chấm độ giống'))),
+        h('span.ai.clay', '🎤'), h('div', h('b', 'Luyện nói & shadowing'), h('span.sub', 'App chấm từng âm và thanh điệu'))),
       h('button.action', { onclick: () => App.go('exams') },
         h('span.ai.indigo', '📝'), h('div', h('b', 'Thi thử HSK 3.0'), h('span.sub', '20 đề HSK3 + 20 đề HSK4, câu hỏi đổi mỗi lần'))));
     root.appendChild(acts);

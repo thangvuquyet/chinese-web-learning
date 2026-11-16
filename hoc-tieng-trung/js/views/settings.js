@@ -24,7 +24,7 @@ App.register('tips', {
     root.appendChild(h('div.card.tint-indigo', h('b', '7 nguyên tắc vàng'), h('ol', { style: { margin: '8px 0 0', paddingLeft: '20px', fontWeight: 500, lineHeight: 1.7 } },
       ['Tự kiểm tra thay vì đọc lại (Roediger & Karpicke, 2006).', 'Ôn ngắt quãng đúng lúc sắp quên (Cepeda và cộng sự, 2006) · app dùng FSRS.', 'Học ít mà đều: 30–45 phút mỗi ngày tốt hơn dồn cuối tuần.', 'Nghe/đọc thứ mình hiểu được khoảng 95–98% (Hu & Nation, 2000).', 'Đủ 4 mạch: nghe-đọc, nói-viết, học có chủ đích, luyện trôi chảy (Nation, 2007).', 'Tận dụng Hán Việt, nhưng cảnh giác bẫy Hán Việt.', 'Động lực đến từ tự chủ, cảm giác giỏi lên và học cùng nhau (Deci & Ryan, 2000).'].map(t => h('li', t)))));
     root.appendChild(h('div.col.mt', HSK.tips.map(([e, t, d]) => h('div.card', h('div.tip-card', h('span.te', e), h('div', h('b', t), h('p', d)))))));
-    root.appendChild(h('div.card.tint-clay.mt', h('b', '📖 Tài liệu nghiên cứu đầy đủ'), h('p.small', { style: { fontWeight: 500 } }, 'Xem file TAI-LIEU-NGHIEN-CUU.md đi kèm thư mục app: lộ trình 3 ngôn ngữ, định dạng HSK 3.0 / TOEIC / JLPT, lịch học tuần cho hai vợ chồng và danh sách nguồn tham khảo.')));
+    root.appendChild(h('div.card.tint-clay.mt', h('b', '📖 Tài liệu nghiên cứu đầy đủ'), h('p.small', { style: { fontWeight: 500 } }, 'Xem file TAI-LIEU-NGHIEN-CUU.md đi kèm thư mục app: lộ trình 3 ngôn ngữ, định dạng HSK 3.0 / TOEIC / JLPT, lịch học tuần và danh sách nguồn tham khảo.')));
   }
 });
 
@@ -72,11 +72,11 @@ App.register('settings', {
     root.appendChild(h('div.sec-title', '🎛️ Tùy chọn'));
     const toggles = [
       ['sound', '🔔 Âm thanh hiệu ứng'], ['motion', '✨ Hoạt hình & pháo giấy'], ['autoplay', '🔊 Tự đọc từ khi hiện thẻ'],
-      ['showPy', '🔤 Hiện pinyin trong câu hỏi và ví dụ'], ['showHv', '📜 Hiện âm Hán Việt'], ['unlockAll', '🔓 Mở khóa tất cả bài (học tự do)']
+      ['showPy', '🔤 Hiện pinyin trong câu hỏi và ví dụ'], ['showHv', '📜 Hiện âm Hán Việt'], ['speakEx', '🎤 Có bài đọc to trong mỗi bài học'], ['unlockAll', '🔓 Mở khóa tất cả bài (học tự do)']
     ];
     root.appendChild(h('div.card', toggles.map(([k, l]) => {
       const inp = h('input', { type: 'checkbox' }); inp.checked = !!s[k];
-      inp.addEventListener('change', () => { s[k] = inp.checked; Store.save(true); if (k === 'motion') document.body.classList.toggle('reduce-motion', !s.motion); });
+      inp.addEventListener('change', () => { s[k] = inp.checked; if (k === 'speakEx') s.speakOff = 0; Store.save(true); if (k === 'motion') document.body.classList.toggle('reduce-motion', !s.motion); });
       return h('label.row.between', { style: { padding: '10px 0', borderBottom: '1px solid var(--line)', cursor: 'pointer' } }, h('b', l), h('span.switch', inp, h('span')));
     })));
 
@@ -97,7 +97,7 @@ App.register('settings', {
         h('button.btn.leaf.sm', {
           onclick: () => {
             const blob = new Blob([Store.exportJSON()], { type: 'application/json' });
-            const a = h('a', { href: URL.createObjectURL(blob), download: `banhbao-hsk-${U.dayKey()}.json` });
+            const a = h('a', { href: URL.createObjectURL(blob), download: `meo-hsk-${U.dayKey()}.json` });
             document.body.appendChild(a); a.click(); a.remove();
             FX.toast('Đã tải file sao lưu 💾');
           }

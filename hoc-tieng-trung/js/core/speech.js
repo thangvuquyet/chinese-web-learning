@@ -87,28 +87,65 @@ const Speech = (() => {
   const SR = window.SpeechRecognition || window.webkitSpeechRecognition || null;
   const canListen = () => !!SR;
   let rec = null;
+  let stream = null;
+  const canRecord = () => !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder) && !/Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  async function micStream() {
+    if (stream && stream.active) return stream;
+    stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+    return stream;
+  }
+  function release() {
+    stopListen();
+    if (stream) { stream.getTracks().forEach(t => t.stop()); stream = null; }
+  }
   function listen(opts = {}) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       if (!SR) return reject(new Error('unsupported'));
       try { if (rec) rec.abort(); } catch (e) {}
-      rec = new SR();
-      rec.lang = 'zh-CN';
-      rec.interimResults = !!opts.onInterim;
-      rec.maxAlternatives = 3;
-      rec.continuous = false;
-      let finalAlts = [];
-      rec.onresult = e => {
-        const res = e.results[e.results.length - 1];
-        const alts = [...res].map(a => a.transcript);
-        if (res.isFinal) finalAlts = alts;
-        else if (opts.onInterim) opts.onInterim(alts[0]);
+      let mr = null;
+      const chunks = [];
+      if (opts.record && canRecord()) {
+        try {
+          const st = await micStream();
+          mr = new MediaRecorder(st);
+          mr.ondataavailable = e => { if (e.data && e.data.size) chunks.push(e.data); };
+          mr.start();
+        } catch (e) { mr = null; }
+      }
+      const t0 = Date.now();
+      const r = rec = new SR();
+      r.lang = 'zh-CN';
+      r.interimResults = true;
+      r.maxAlternatives = 3;
+      r.continuous = !!opts.continuous;
+      let finals = [], alts = [], interim = '', err = null;
+      r.onresult = e => {
+        finals = []; interim = '';
+        for (let i = 0; i < e.results.length; i++) {
+          const res = e.results[i];
+          if (res.isFinal) { finals.push(res[0].transcript); alts = [...res].map(a => a.transcript); }
+          else interim += res[0].transcript;
+        }
+        opts.onInterim && opts.onInterim(finals.join('') + interim);
       };
-      rec.onerror = e => { reject(new Error(e.error || 'error')); };
-      rec.onend = () => resolve(finalAlts);
-      try { rec.start(); } catch (e) { reject(e); }
+      r.onerror = e => { err = e.error || 'error'; };
+      r.onend = async () => {
+        const secs = (Date.now() - t0) / 1000;
+        let audio = null;
+        if (mr) audio = await new Promise(res => {
+          if (mr.state === 'inactive') return res(null);
+          mr.onstop = () => res(chunks.length ? URL.createObjectURL(new Blob(chunks, { type: mr.mimeType || 'audio/webm' })) : null);
+          try { mr.stop(); } catch (e) { res(null); }
+        });
+        const text = finals.join('') || interim;
+        if (err && !text && !['no-speech', 'aborted'].includes(err)) return reject(new Error(err));
+        resolve({ text, alts: alts.length ? alts : (text ? [text] : []), audio, secs });
+      };
+      try { r.start(); } catch (e) { if (mr && mr.state !== 'inactive') mr.stop(); return reject(e); }
+      if (opts.maxMs) setTimeout(() => { if (rec === r) try { r.stop(); } catch (e) {} }, opts.maxMs);
     });
   }
   function stopListen() { try { rec && rec.stop(); } catch (e) {} }
 
-  return { speak, speakLines, stop, available, supported, zhVoices, parseDialog, canListen, listen, stopListen, refresh };
+  return { speak, speakLines, stop, available, supported, zhVoices, parseDialog, canListen, listen, stopListen, release, refresh };
 })();

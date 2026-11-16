@@ -49,7 +49,11 @@ App.register('sounds', {
       const holder = h('div'); body.appendChild(holder);
       const run = R.runner(holder, {
         questions: qs, onExit: () => { tab = 'listen'; paint(); }, onFinish: res => {
-          p.stats.tones += res.right; Store.save();
+          p.stats.tones += res.right;
+          const d = Store.dayRec(p);
+          d.listen = (d.listen || 0) + 1;
+          if (res.acc === 1) d.perfect = (d.perfect || 0) + 1;
+          Store.save();
           const xp = 5 + res.right;
           const ev = Store.addXP(xp);
           R.resultScreen(holder, res, { xp, buttons: [h('button.btn.block', { onclick: () => startListen(lvMax) }, '🔁 Chơi tiếp'), h('button.btn.ghost.block', { onclick: () => { tab = 'listen'; paint(); } }, '← Quay lại')] });
