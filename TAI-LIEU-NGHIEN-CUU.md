@@ -383,10 +383,15 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 ## 9. Hướng dẫn dùng app tiếng Trung "Mèo HSK"
 
 ### 9.1 Mở app
-- Mở file `hoc-tieng-trung/index.html` bằng **Microsoft Edge** (khuyên dùng, vì có giọng đọc tiếng Trung tự nhiên "Xiaoxiao/Yunxi") hoặc Chrome.
-- Bấm đúp `index.html` là chạy, không cần cài đặt hay máy chủ (đã thử mở trực tiếp bằng file:// trên Edge).
+- **Cách chính: bản trên mạng, cài thành app.**
+  - Địa chỉ: https://thangvuquyet.github.io/chinese-web-learning/ (GitHub Pages, tự cập nhật mỗi lần push lên nhánh `main`).
+  - Máy tính: mở địa chỉ trên bằng Chrome, bấm biểu tượng **Cài đặt** ở cuối thanh địa chỉ (hoặc menu ⋮ → Truyền, lưu và chia sẻ → Cài đặt trang này dưới dạng ứng dụng). App có biểu tượng mèo trên màn hình, Start menu và taskbar, mở thành cửa sổ riêng.
+  - Điện thoại: mở địa chỉ trên bằng Chrome (Android) hoặc Safari (iPhone), chọn "Thêm vào màn hình chính".
+  - Quyền micro chỉ hỏi một lần. Sau lần mở đầu tiên, app mở được cả khi mất mạng.
+- **Cách phụ: chạy từ thư mục code.** Bấm đúp `chay-app.cmd` ở thư mục gốc repo: app mở bằng Chrome, không có thì Edge. Cách này dùng file:// nên trình duyệt có thể hỏi quyền micro nhiều lần.
+- **Tiến độ gắn với địa chỉ mở app.** Bản trên mạng và bản chạy từ thư mục lưu tiến độ riêng. Muốn chuyển thì dùng Cài đặt → Xuất / Nhập tiến độ.
+- **Trình duyệt:** Chrome và Edge đều chạy đủ tính năng. Edge có giọng đọc tự nhiên hơn ("Xiaoxiao/Yunxi"); Chrome dùng giọng "Google 普通话". Đoạn văn dài được đọc từng câu nối tiếp để giọng Google không bị ngắt giữa chừng.
 - **Cần Internet** cho: hoạt hình nét chữ (Hanzi Writer), nhận dạng giọng nói, phông chữ đẹp (Be Vietnam Pro, Noto Serif SC). Không có mạng thì app vẫn chạy đủ phần còn lại, kể cả pinyin câu ví dụ (đã chạy thử khi chặn toàn bộ mạng); phông chữ tự chuyển sang phông có sẵn của máy.
-- **Dùng trên điện thoại:** đưa thư mục `hoc-tieng-trung` lên một host tĩnh (GitHub Pages, Netlify, Cloudflare Pages) rồi mở bằng Chrome hoặc Safari, sau đó "Thêm vào màn hình chính".
 - **Nếu không có tiếng đọc:**
   - Windows: Cài đặt → Thời gian & ngôn ngữ → Giọng nói → Thêm giọng → Tiếng Trung (Giản thể).
   - Android: Cài đặt → Chuyển văn bản thành giọng nói → Google → tải tiếng Trung.

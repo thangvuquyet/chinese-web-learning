@@ -1,9 +1,18 @@
 {
+  "id": "./",
   "name": "Mèo HSK · Học tiếng Trung",
   "short_name": "Mèo HSK",
-  "start_url": "./index.html",
+  "description": "Học tiếng Trung từ HSK2 lên HSK4 theo định dạng HSK 3.0",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#fff6f1",
-  "theme_color": "#ff8fab",
-  "icons": [{ "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+  "background_color": "#F6F3EC",
+  "theme_color": "#0E6A59",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
 }

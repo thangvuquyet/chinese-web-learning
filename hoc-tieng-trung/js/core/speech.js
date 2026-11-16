@@ -40,7 +40,30 @@ const Speech = (() => {
   const available = () => !!synth && zhVoices().length > 0;
   const supported = () => !!synth;
 
+  function chunks(text) {
+    const parts = String(text).split(/(?<=[。！？；!?;])/).flatMap(s => s.length > 44 ? s.split(/(?<=[，,、：])/) : [s]).filter(s => s.trim());
+    const out = [];
+    for (const s of parts) {
+      if (out.length && (out[out.length - 1] + s).length <= 36) out[out.length - 1] += s;
+      else out.push(s);
+    }
+    return out;
+  }
   function speak(text, opts = {}) {
+    if (!synth || !text) return Promise.resolve(false);
+    const list = String(text).length > 36 ? chunks(text) : [String(text)];
+    if (list.length < 2) return speakOne(text, opts);
+    const my = opts.token != null ? opts.token : ++token;
+    if (opts.cancel !== false) synth.cancel();
+    return (async () => {
+      for (const c of list) {
+        await speakOne(c, Object.assign({}, opts, { token: my, cancel: false }));
+        if (my !== token) return false;
+      }
+      return true;
+    })();
+  }
+  function speakOne(text, opts = {}) {
     return new Promise(resolve => {
       if (!synth || !text) return resolve(false);
       const my = opts.token != null ? opts.token : ++token;
