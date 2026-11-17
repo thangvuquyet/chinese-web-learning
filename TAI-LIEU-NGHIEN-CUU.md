@@ -386,7 +386,7 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 
 ### 9.1 Mở app
 - **Cách chính: bản trên mạng, cài thành app.**
-  - Địa chỉ: https://thangvuquyet.github.io/chinese-web-learning/ (GitHub Pages, tự cập nhật mỗi lần push lên nhánh `main`). Trang này giờ là trang chọn app: bấm **Mèo HSK**, hoặc vào thẳng `.../hoc-tieng-trung/`. App đã cài trước đó vẫn mở thẳng vào Mèo HSK.
+  - Địa chỉ: https://thangvuquyet.github.io/chinese-web-learning/ (GitHub Pages, tự cập nhật mỗi lần push lên nhánh `main`). Địa chỉ gốc tự chuyển sang `.../hoc-tieng-trung/`. App TOEIC nằm ở repo riêng (xem mục 10.1).
   - Máy tính: mở địa chỉ trên bằng Chrome, bấm biểu tượng **Cài đặt** ở cuối thanh địa chỉ (hoặc menu ⋮ → Truyền, lưu và chia sẻ → Cài đặt trang này dưới dạng ứng dụng). App có biểu tượng mèo trên màn hình, Start menu và taskbar, mở thành cửa sổ riêng.
   - Điện thoại: mở địa chỉ trên bằng Chrome (Android) hoặc Safari (iPhone), chọn "Thêm vào màn hình chính".
   - Quyền micro chỉ hỏi một lần. Sau lần mở đầu tiên, app mở được cả khi mất mạng.
@@ -498,7 +498,7 @@ App luyện TOEIC Listening & Reading cho **cả hai vợ chồng**, mục tiêu
 
 ### 10.1 Mở app
 
-- **Online:** https://thangvuquyet.github.io/chinese-web-learning/ → chọn **Pawlish · TOEIC** (hoặc vào thẳng `.../hoc-tieng-anh/`).
+- **Online:** https://thangvuquyet.github.io/english-learning-web/ (GitHub Pages của repo riêng https://github.com/thangvuquyet/english-learning-web, tự cập nhật mỗi lần push lên nhánh `main`). Hai app là hai repo tách biệt, không dùng chung địa chỉ.
 - **Cài thành app trên máy tính (Chrome):** mở địa chỉ trên → menu ⋮ → **Cast, save and share** → **Install page as app**. Biểu tượng bàn chân xanh sẽ có trên màn hình. Mỗi app (Mèo HSK, Pawlish) cài riêng.
 - **Lần đầu mở:** 3 bước: đặt tên hai người (mặc định Mèo, Chó) → chọn điểm mục tiêu (800/850/900) và thời gian học mỗi ngày → chọn **ai dùng máy này**.
 - **Nên dùng Chrome hoặc Edge:** cần để có giọng đọc tiếng Anh tốt và để AI nghe giọng nói. Edge có nhiều giọng thần kinh (Aria, Guy, Sonia, Natasha…) nghe tự nhiên hơn; Chrome có giọng Google Mỹ và Anh.
