@@ -1,7 +1,7 @@
 # Học ngoại ngữ cùng nhau: tài liệu nghiên cứu, phương pháp và lộ trình
 
-> Dành cho hai vợ chồng học **tiếng Trung (HSK2 → HSK3–4)**, **tiếng Anh (TOEIC 400–500 → 700–800)** và **tiếng Nhật (từ đầu → N3)**.
-> Cập nhật: 13/11/2026. Các con số về kỳ thi phải kiểm tra lại trên trang chính thức trước khi đăng ký (link ở mục 10).
+> Dành cho hai vợ chồng học **tiếng Trung (HSK2 → HSK3–4)**, **tiếng Anh (TOEIC, mục tiêu 800–900 cho cả hai người)** và **tiếng Nhật (từ đầu → N3)**.
+> Cập nhật: 13/11/2026. Các con số về kỳ thi phải kiểm tra lại trên trang chính thức trước khi đăng ký (link ở mục 11).
 
 ---
 
@@ -315,7 +315,9 @@ Tổng cộng **khoảng 9–12 tháng** để từ HSK2 đến sẵn sàng thi 
 
 ---
 
-## 6. Lộ trình tiếng Anh: TOEIC 450 → 750
+## 6. Lộ trình tiếng Anh: TOEIC 450 → 750 (bản đầu) và 800–900 (mục tiêu hiện tại)
+
+> Cập nhật 17/11/2026: cả hai vợ chồng cùng hướng tới 800–900. Lộ trình chi tiết trong app ở mục 10 (Lộ trình 900 chia 3 giai đoạn: Nền tảng vững 650–700, Tăng tốc 750–800, Về đích 850–900).
 
 | Giai đoạn | Mục tiêu | Trọng tâm | Thời gian |
 |---|---|---|---|
@@ -384,7 +386,7 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 
 ### 9.1 Mở app
 - **Cách chính: bản trên mạng, cài thành app.**
-  - Địa chỉ: https://thangvuquyet.github.io/chinese-web-learning/ (GitHub Pages, tự cập nhật mỗi lần push lên nhánh `main`).
+  - Địa chỉ: https://thangvuquyet.github.io/chinese-web-learning/ (GitHub Pages, tự cập nhật mỗi lần push lên nhánh `main`). Trang này giờ là trang chọn app: bấm **Mèo HSK**, hoặc vào thẳng `.../hoc-tieng-trung/`. App đã cài trước đó vẫn mở thẳng vào Mèo HSK.
   - Máy tính: mở địa chỉ trên bằng Chrome, bấm biểu tượng **Cài đặt** ở cuối thanh địa chỉ (hoặc menu ⋮ → Truyền, lưu và chia sẻ → Cài đặt trang này dưới dạng ứng dụng). App có biểu tượng mèo trên màn hình, Start menu và taskbar, mở thành cửa sổ riêng.
   - Điện thoại: mở địa chỉ trên bằng Chrome (Android) hoặc Safari (iPhone), chọn "Thêm vào màn hình chính".
   - Quyền micro chỉ hỏi một lần. Sau lần mở đầu tiên, app mở được cả khi mất mạng.
@@ -490,7 +492,105 @@ Ví dụ: 女儿长得很像妈妈 → *Nǚ'ér zhǎng de hěn xiàng māma.* C�
 
 ---
 
-## 10. Nguồn tham khảo
+## 10. Hướng dẫn dùng app TOEIC "Pawlish" (Mèo & Chó)
+
+App luyện TOEIC Listening & Reading cho **cả hai vợ chồng**, mục tiêu chung **800–900**. Mèo dùng hình con mèo, Chó dùng hình con chó. Mỗi người có hồ sơ, lộ trình và điểm dự đoán riêng.
+
+### 10.1 Mở app
+
+- **Online:** https://thangvuquyet.github.io/chinese-web-learning/ → chọn **Pawlish · TOEIC** (hoặc vào thẳng `.../hoc-tieng-anh/`).
+- **Cài thành app trên máy tính (Chrome):** mở địa chỉ trên → menu ⋮ → **Cast, save and share** → **Install page as app**. Biểu tượng bàn chân xanh sẽ có trên màn hình. Mỗi app (Mèo HSK, Pawlish) cài riêng.
+- **Lần đầu mở:** 3 bước: đặt tên hai người (mặc định Mèo, Chó) → chọn điểm mục tiêu (800/850/900) và thời gian học mỗi ngày → chọn **ai dùng máy này**.
+- **Nên dùng Chrome hoặc Edge:** cần để có giọng đọc tiếng Anh tốt và để AI nghe giọng nói. Edge có nhiều giọng thần kinh (Aria, Guy, Sonia, Natasha…) nghe tự nhiên hơn; Chrome có giọng Google Mỹ và Anh.
+
+### 10.2 Luồng học mỗi ngày (khoảng 30–45 phút)
+
+Trang **Hôm nay** tự xếp kế hoạch dựa trên dữ liệu của từng người:
+
+1. **Ôn từ đến hạn:** thẻ FSRS đúng "thời điểm vàng" sắp quên.
+2. **Học 8 từ mới:** theo chủ đề công sở, gồm giới thiệu từ, nghe chọn, điền kiểu Part 5, ghép cặp, gõ chính tả và đọc to có AI chấm.
+3. **Luyện Part yếu nhất:** app so độ chính xác từng Part với mức cần cho mục tiêu, chọn Part kéo điểm xuống nhiều nhất.
+4. **Ngữ pháp:** chủ điểm tiếp theo kèm câu luyện kiểu Part 5.
+5. **Phát âm cùng AI:** đọc 5 câu, đạt từ 80 điểm.
+6. **Cuối tuần:** một đề rút gọn để đo tiến bộ.
+
+Thêm vào đó có 3 nhiệm vụ mỗi ngày (+10 XP mỗi nhiệm vụ), chuỗi ngày học, thẻ đóng băng (giữ chuỗi khi lỡ một ngày, được tặng thêm sau mỗi 7 ngày) và huy hiệu.
+
+### 10.3 Nội dung có trong app
+
+| Mục | Số lượng | Ghi chú |
+|---|---|---|
+| Từ vựng | 1.010 từ, 26 chủ đề | Phiên âm Mỹ, nghĩa Việt, câu ví dụ công sở, họ từ, cụm hay gặp; nghe giọng Mỹ và Anh |
+| Ngữ pháp Part 5–6 | 27 bài, 173 câu luyện | Giải thích tiếng Việt, ví dụ có âm thanh, mục "Bẫy TOEIC" |
+| Chiến thuật | 14 bài | Theo từng Part: 20 giây/câu Part 5, bẫy Part 2, đọc trước câu hỏi Part 3, quản lý 75 phút Reading… |
+| Part 1 | 16 tranh vẽ | Mỗi tranh 7 câu mô tả, mỗi lần làm chọn ngẫu nhiên 1 câu đúng + 3 câu bẫy |
+| Part 2 | 114 câu | Có giải thích bẫy lặp âm, trả lời gián tiếp |
+| Part 3 | 36 hội thoại (108 câu) | Có hội thoại 3 người, câu hàm ý, câu biểu đồ |
+| Part 4 | 27 bài nói (81 câu) | Thông báo, tin nhắn thoại, quảng cáo, bản tin, hướng dẫn tham quan |
+| Part 5 | 252 câu viết tay + khoảng 940 câu sinh từ câu ví dụ | Câu sinh tự động dùng để luyện từ vựng, trong đề chỉ chiếm phần nhỏ |
+| Part 6 | 12 đoạn (48 câu) | Mỗi đoạn có 1 câu chèn câu |
+| Part 7 | 22 đoạn đơn, 6 đoạn kép, 6 đoạn ba (123 câu) | Email, quảng cáo, tin nhắn, bài báo, trang web, hóa đơn; có câu chèn câu, câu đồng nghĩa, câu nối thông tin nhiều văn bản |
+| Luyện nói | 8 đoạn đọc to, 12 câu hỏi trả lời, 47 âm IPA | Cặp từ tối thiểu, mẹo cho người Việt |
+
+### 10.4 Thi thử và điểm dự đoán
+
+- **Loại đề:** đầy đủ (200 câu, đúng cấu trúc 6/25/39/30/30/16/54), rút gọn (khoảng 90 câu), chỉ Listening, chỉ Reading, kiểm tra đầu vào (40 câu), và **bộ 20 đề đánh số**. Mỗi lần làm, app ưu tiên câu bạn chưa gặp nên đề thay đổi.
+- **Chế độ "Như thi thật":** phần nghe tự chạy liền mạch như băng thật (đọc số câu, 5 giây chờ ở Part 1–2, 8 giây cho mỗi câu Part 3–4, 12 giây với câu biểu đồ), không tua lại; Reading đếm ngược và tự nộp khi hết giờ.
+- **Chế độ "Luyện thi":** được dừng, nghe lại từng bài, chuyển qua lại.
+- **Sau khi nộp:** điểm 10–990, màu chứng chỉ, CEFR, kết quả từng Part so với mức cần cho mục tiêu, dạng câu yếu nhất, xem lại từng câu kèm lời thoại và giải thích. Câu sai tự vào **Sổ lỗi sai**.
+- **Điểm dự đoán** trên trang chủ tính từ 80 câu gần nhất mỗi Part, quy đổi theo bảng ước lượng. **ETS không công bố bảng quy đổi chính thức**, nên đây là ước tính (có ghi ± sai số), chỉ dùng để theo dõi xu hướng. Bài đầu vào làm mức xuất phát.
+
+### 10.5 AI chấm phát âm và nói
+
+- **Cách hoạt động:** Chrome gửi giọng nói tới dịch vụ nhận dạng giọng nói của Google (AI chuyển giọng thành chữ). App so khớp với câu mẫu theo âm vị và chấm:
+  - **Phát âm:** từng từ được tô xanh (chuẩn), vàng (gần đúng), đỏ (sai), xám gạch ngang (bị bỏ sót). Bấm vào từ để xem phiên âm, máy nghe thành gì và cách sửa.
+  - **Đầy đủ:** tỷ lệ từ máy nghe thấy.
+  - **Trôi chảy:** trên máy tính, app ghi âm để đo tốc độ (từ/phút) và chỗ ngắt dài.
+- **Lỗi người Việt app nhận ra được:** nuốt âm cuối, mất -s, -ed, /θ/ thành /t/ hoặc /s/, /ð/ thành /d/, /ʃ/ thành /s/, /tʃ/ thành /ʃ/, /v/ thành /b/, /r/–/l/, /n/–/l/, nguyên âm dài ngắn (ship–sheep), /æ/–/e/. Âm hay sai được lưu lại và tô đỏ trong bảng IPA.
+- **4 cách luyện:** Đọc to, Nhại hội thoại (shadowing tự động từng câu Part 3–4), Âm & cặp từ (luyện tai phân biệt), Trả lời câu hỏi (30–60 giây, chấm độ dài, tốc độ, từ nối, bám chủ đề).
+- **AI nhận xét bài nói bằng Claude (tùy chọn):** vào Cài đặt, dán API key Claude của riêng bạn (tạo ở console.anthropic.com, tính phí theo lượt). App sẽ sửa từng lỗi ngữ pháp, chấm 4 tiêu chí và viết lại câu trả lời ở mức B2–C1 giữ ý của bạn. Key chỉ lưu trong trình duyệt; lời nói (dạng chữ) được gửi tới Anthropic. Không có key thì các phần khác vẫn chạy đầy đủ.
+- **Giới hạn:** nhận dạng có ngữ cảnh nên đôi khi "đoán đúng" dù đọc chưa chuẩn; chưa chấm ngữ điệu và trọng âm câu. Cần Internet. Trên điện thoại không ghi âm song song được nên không có điểm trôi chảy chi tiết.
+
+### 10.6 Đôi ta: học cùng nhau
+
+- **Cùng một máy:** bấm vào hồ sơ ở góc trên trái (hoặc ảnh đại diện) → **Đổi người học**.
+- **Hai máy khác nhau:** vào **Mèo & Chó** → **Tạo link tiến độ** → gửi link qua Zalo/Messenger. Người kia mở link là app cập nhật tiến độ của bạn (kèm lời nhắn chưa gửi). Link chỉ chứa số liệu tóm tắt (XP, chuỗi ngày, điểm dự đoán, số từ, điểm đề), không có dữ liệu cá nhân khác.
+- Trang **Mèo & Chó** có: chuỗi đôi (chỉ tăng khi cả hai cùng học trong ngày), mục tiêu tuần của đội, đua XP tuần với biểu đồ từng ngày, bảng so 9 chỉ số, lời nhắn động viên.
+
+### 10.7 Học hỏi từ các app lớn
+
+Tính năng của Pawlish được chọn sau khi xem cách các app học ngoại ngữ lớn trong nước và quốc tế đang làm (tháng 11/2026):
+
+| App | Điểm hay | Áp dụng trong Pawlish |
+|---|---|---|
+| Santa (Riiid) | Bài kiểm tra ngắn dự đoán điểm, chỉ ra Part yếu, gợi ý lộ trình | Bài đầu vào 40 câu, điểm dự đoán cập nhật liên tục, kế hoạch ngày nhắm vào Part yếu nhất |
+| Study4 | Luyện đề đầy đủ và theo Part, chép chính tả, theo dõi theo ngày và theo dạng câu | Luyện từng Part, nghe chép chính tả có tô từ sai, thống kê theo dạng câu, bộ 20 đề |
+| ELSA Speak | Chấm từng âm, tô màu xanh/vàng/đỏ, mẹo khẩu hình | Chấm phát âm theo âm vị, tô màu từng từ, mẹo sửa bằng tiếng Việt, bảng IPA |
+| Prep | Phòng thi ảo như thi thật, AI chấm nói và gợi ý bản nâng cấp, nhận xét bằng tiếng Việt | Phòng thi "Như thi thật", AI nhận xét bài nói và viết bản nâng cấp (Claude) |
+| MochiMochi | Nhắc ôn đúng "thời điểm vàng" | Ôn thẻ FSRS đến hạn, hiển thị độ nhớ từng từ |
+| Duolingo | Lộ trình, kho luyện lỗi sai, nhiệm vụ, chuỗi ngày, Friend Streak, giải thích đáp án | Lộ trình 900, Sổ lỗi sai, 3 nhiệm vụ mỗi ngày, chuỗi đôi, giải thích mọi câu |
+| Anki | Thuật toán FSRS, mặc định từ bản 23.10 | Thẻ từ dùng FSRS với 4 mức Quên/Khó/Nhớ/Dễ |
+
+**Nguồn:**
+- [Santa – AI TOEIC (App Store)](https://apps.apple.com/us/app/-/id1148006701)
+- [STUDY4](https://study4.com/)
+- [ELSA Speak review (All Language Resources)](https://www.alllanguageresources.com/elsa-speak/)
+- [Prep – Phòng luyện TOEIC 4 kỹ năng](https://prepedu.com/vi/news/phong-luyen-de-toeic-4-ky-nang)
+- [MochiMochi](https://mochidemy.com/en/)
+- [Duolingo 101](https://blog.duolingo.com/duolingo-101-how-to-learn-a-language-on-duolingo)
+- [Best spaced repetition apps 2026](https://chunks-landing.pages.dev/blog/best-spaced-repetition-apps-2026)
+- [TOEIC 4-Skills 2026 (digiSchool)](https://www.digischool.fr/articles/toeic/nouveau-toeic-4-skills-aout-2026/): cho biết TOEIC Listening & Reading không đổi định dạng (200 câu, 2 giờ); cần đối chiếu với ETS trước khi thi.
+
+### 10.8 Sao lưu và giới hạn
+
+- **Sao lưu:** Cài đặt → **Tải file** (chứa tiến độ cả hai người) → mở trên máy khác → **Chọn file**.
+- **Dữ liệu cục bộ:** tiến độ lưu trong trình duyệt. Bản mở từ thư mục code (file://) và bản online lưu riêng; nên học trên bản online đã cài.
+- **Câu hỏi do app biên soạn**, theo đúng định dạng ETS nhưng không phải đề thật. Nên làm thêm bộ đề ETS chính thức (*公式問題集* của IIBC hoặc *ETS TOEIC Official Prep*) khoảng 1 tháng trước ngày thi.
+- **Câu Part 5 sinh tự động** từ câu ví dụ đôi khi có hơn một đáp án nghe hợp lý. Gặp câu như vậy hãy đọc giải thích nghĩa từng từ; trong đề thi thử loại câu này chỉ chiếm khoảng 1/4 Part 5.
+
+---
+
+## 11. Nguồn tham khảo
 
 **Kỳ thi**
 - Chinese Testing International: https://www.chinesetest.cn (HSK, HSK 3.0, đề mẫu)

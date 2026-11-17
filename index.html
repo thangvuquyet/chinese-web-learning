@@ -3,13 +3,49 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mèo HSK</title>
-<meta http-equiv="refresh" content="0; url=hoc-tieng-trung/">
-<link rel="canonical" href="hoc-tieng-trung/">
-<link rel="icon" href="hoc-tieng-trung/assets/icon.svg" type="image/svg+xml">
-<script>location.replace('hoc-tieng-trung/' + location.hash);</script>
+<title>Học ngoại ngữ cùng nhau</title>
+<meta name="theme-color" content="#0D1433">
+<link rel="icon" href="hoc-tieng-anh/assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#0D1433;background:radial-gradient(700px 400px at 100% 0%,rgba(76,100,255,.12),transparent 60%),radial-gradient(600px 400px at 0% 100%,rgba(15,123,102,.10),transparent 60%),#F4F5F8;display:flex;align-items:center;justify-content:center;padding:28px}
+main{width:100%;max-width:860px}
+h1{font-size:32px;font-weight:800;letter-spacing:-.03em;margin:0 0 6px}
+p.lead{color:#69718F;margin:0 0 26px;font-size:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+a.app{display:flex;flex-direction:column;gap:14px;padding:26px;border-radius:22px;background:#fff;border:1px solid #E4E7EF;text-decoration:none;color:inherit;box-shadow:0 1px 2px rgba(13,20,51,.05);transition:transform .2s,box-shadow .2s,border-color .2s}
+a.app:hover{transform:translateY(-3px);box-shadow:0 18px 40px -18px rgba(13,20,51,.35);border-color:#D4D9E5}
+.mark{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-size:28px;font-weight:800;color:#fff}
+.zh .mark{background:linear-gradient(135deg,#14937A,#0B5F4F);font-family:"Noto Serif SC",serif}
+.en .mark{background:linear-gradient(135deg,#4C64FF,#2133B8)}
+.app b{font-size:20px;letter-spacing:-.02em}
+.app span{color:#69718F;font-size:14.5px;line-height:1.5}
+.go{margin-top:auto;font-weight:600;font-size:14px}
+.zh .go{color:#0F7B66}.en .go{color:#3048E0}
+@media(max-width:640px){.grid{grid-template-columns:1fr}h1{font-size:26px}}
+</style>
 </head>
-<body style="font-family:system-ui,sans-serif;background:#F6F3EC;color:#17211D;display:grid;place-items:center;min-height:100vh;margin:0">
-<a href="hoc-tieng-trung/" style="color:#0F7B66;font-weight:600">Mở Mèo HSK</a>
+<body>
+<main>
+  <h1>Học ngoại ngữ cùng nhau</h1>
+  <p class="lead">Chọn app để bắt đầu. Mỗi app lưu tiến độ riêng trên trình duyệt này.</p>
+  <div class="grid">
+    <a class="app zh" href="hoc-tieng-trung/">
+      <div class="mark">猫</div>
+      <b>Mèo HSK</b>
+      <span>Tiếng Trung HSK2 → HSK4 theo HSK 3.0. Thẻ từ FSRS, ngữ pháp, luyện nghe nói, 40 đề thi thử.</span>
+      <div class="go">Mở Mèo HSK →</div>
+    </a>
+    <a class="app en" href="hoc-tieng-anh/">
+      <div class="mark"><svg width="34" height="34" viewBox="0 0 64 64"><circle cx="16.5" cy="25" r="5.2" fill="#fff"/><circle cx="26.5" cy="16.5" r="5.2" fill="#fff"/><circle cx="37.5" cy="16.5" r="5.2" fill="#fff"/><circle cx="47.5" cy="25" r="5.2" fill="#C6F36B"/><path d="M22 30.5h20a8 8 0 0 1 8 8v3a8 8 0 0 1-8 8h-9l-6.5 5.5v-5.5H22a8 8 0 0 1-8-8v-3a8 8 0 0 1 8-8Z" fill="#fff"/></svg></div>
+      <b>Pawlish · TOEIC</b>
+      <span>TOEIC Listening & Reading 800–900 cho Mèo & Chó. Đề thi thử 200 câu, AI chấm phát âm, so tiến độ hai người.</span>
+      <div class="go">Mở Pawlish →</div>
+    </a>
+  </div>
+</main>
 </body>
 </html>
