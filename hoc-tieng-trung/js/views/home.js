@@ -24,13 +24,29 @@ App.register('home', {
       h('div.row.between', h('b', '🎯 Mục tiêu hôm nay'), h('span.small.muted', { style: { fontWeight: 600 } }, `${today} / ${p.goal} XP`)),
       h('div.mt', UI.progress(goalPct, goalPct >= 1 ? '' : 'jade'))));
 
-    root.appendChild(h('div.card.mt.streak-card',
-      h('div.row',
-        h('span.sc-flame' + (sv.today ? '' : '.off'), Icon.svg('flame')),
-        h('div.grow', h('b.sc-n', `${sv.n} ngày liên tiếp`), h('div.small.muted', { style: { fontWeight: 500 } }, sv.today ? 'Hôm nay đã giữ chuỗi' : sv.n ? 'Học một bài để giữ chuỗi' : 'Học một bài để bắt đầu chuỗi')),
-        h('span.pill.info', { title: 'Thẻ đóng băng giữ chuỗi khi lỡ một ngày' }, Icon.svg('snow'), String(p.streak.freeze))),
+    const marks = [3, 7, 14, 30, 60, 100, 180, 365];
+    const next = marks.find(m => m > sv.n);
+    const state = sv.today ? 'on' : sv.n ? 'idle' : 'off';
+    const sub = sv.today ? [Icon.svg('check'), 'Hôm nay đã giữ chuỗi']
+      : sv.frozen ? ['Thẻ đóng băng đang giữ chuỗi. Học hôm nay để đi tiếp']
+      : sv.n ? ['Học một bài hôm nay để giữ chuỗi'] : ['Học một bài để bắt đầu chuỗi'];
+    const num = h('b.stk-num', String(sv.n));
+    if (sv.n) FX.countUp(num, sv.n, { from: 0, dur: 700 });
+    root.appendChild(h('div.card.mt.streak-card.' + state, { role: 'group', 'aria-label': `Chuỗi ${sv.n} ngày liên tiếp` },
+      h('div.stk-head',
+        h('div.stk-fire', FX.flame(sv.n, true)),
+        h('div.stk-main',
+          h('div.stk-eyebrow', 'Chuỗi ngày học'),
+          h('div.stk-count', num, h('span', 'ngày liên tiếp')),
+          h('div.stk-sub', ...sub)),
+        h('div.stk-ice', { title: `Thẻ đóng băng giữ chuỗi khi lỡ một ngày. Còn ${p.streak.freeze} thẻ` },
+          h('div.stk-slots', [0, 1, 2].map(i => h('span.stk-slot' + (i < p.streak.freeze ? '.on' : ''), Icon.svg('snow')))),
+          h('span.stk-ice-l', 'Đóng băng'))),
       UI.weekRow(p),
-      h('div.small.muted.mt', { style: { fontWeight: 500 } }, `Dài nhất ${p.streak.best} ngày. Mỗi 7 ngày liền được tặng thêm 1 thẻ đóng băng.`)));
+      next ? h('div.stk-next',
+        h('div.row.between', h('span', 'Mốc tiếp theo ', h('b', `${next} ngày`)), h('span.small.muted', { style: { fontWeight: 600 } }, `còn ${next - sv.n} ngày`)),
+        h('div', { style: { marginTop: '8px' } }, UI.progress(sv.n / next, 'gold'))) : null,
+      h('div.stk-foot', `Dài nhất ${p.streak.best} ngày. Đủ 7 ngày liền được tặng thêm 1 thẻ đóng băng.`)));
 
     const QI = { goal: 'target', rev20: 'cards', lesson: 'route', speak5: 'mic', ok30: 'star', combo8: 'flame', perfect: 'trophy', listen: 'volume' };
     const qs = Store.quests(p);

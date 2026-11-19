@@ -278,10 +278,10 @@ const UI = (() => {
     const now = new Date();
     const dow = (now.getDay() + 6) % 7;
     const names = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+    const at = i => (p.days[U.dayKey(new Date(now.getFullYear(), now.getMonth(), now.getDate() - dow + i))] || 0) > 0;
     return h('div.week', names.map((nm, i) => {
-      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - dow + i);
-      const did = (p.days[U.dayKey(d)] || 0) > 0;
-      return h('div.wd' + (did ? '.on' : '') + (i === dow ? '.today' : '') + (i > dow ? '.future' : ''), h('i', did ? Icon.svg('check') : null), h('span', nm));
+      const did = at(i);
+      return h('div.wd' + (did ? '.on' : '') + (did && i > 0 && at(i - 1) ? '.link' : '') + (i === dow ? '.today' : '') + (i > dow ? '.future' : ''), h('i', did ? Icon.svg('check') : null), h('span', nm));
     }));
   }
   function streakCele(p, ev) {

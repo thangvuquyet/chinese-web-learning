@@ -178,9 +178,10 @@ const FX = (() => {
     root.appendChild(b);
     setTimeout(() => b.remove(), 1900);
   }
-  function flame(n) {
+  function flame(n, plain) {
     const el = h('div.flame-hero');
-    el.innerHTML = `<svg viewBox="0 0 120 140" aria-hidden="true"><defs><linearGradient id="fg1" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#C2410C"/><stop offset=".55" stop-color="#E8622C"/><stop offset="1" stop-color="#F2A93B"/></linearGradient><linearGradient id="fg2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#FDE68A"/></linearGradient></defs><path class="fl-o" d="M60 134c27 0 48-18 48-46 0-21-12-37-24-50-2 12-8 21-17 25 3-24-9-45-27-58 1 23-13 37-22 50-6 9-10 20-10 33 0 28 23 46 52 46Z" fill="url(#fg1)"/><path class="fl-i" d="M60 132c15 0 26-10 26-25 0-12-7-21-14-28-1 7-5 12-10 14 2-13-5-25-15-32 0 13-7 21-12 28-3 5-5 11-5 18 0 15 13 25 30 25Z" fill="url(#fg2)"/></svg><b class="fl-n">${Math.max(0, n - 1)}</b>`;
+    const k = plain ? 'h' : '';
+    el.innerHTML = `<svg viewBox="0 0 120 140" aria-hidden="true"><defs><linearGradient id="fg${k}1" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#C2410C"/><stop offset=".55" stop-color="#E8622C"/><stop offset="1" stop-color="#F2A93B"/></linearGradient><linearGradient id="fg${k}2" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#F59E0B"/><stop offset="1" stop-color="#FDE68A"/></linearGradient></defs><path class="fl-o" d="M60 134c27 0 48-18 48-46 0-21-12-37-24-50-2 12-8 21-17 25 3-24-9-45-27-58 1 23-13 37-22 50-6 9-10 20-10 33 0 28 23 46 52 46Z" fill="url(#fg${k}1)"/><path class="fl-i" d="M60 132c15 0 26-10 26-25 0-12-7-21-14-28-1 7-5 12-10 14 2-13-5-25-15-32 0 13-7 21-12 28-3 5-5 11-5 18 0 15 13 25 30 25Z" fill="url(#fg${k}2)"/></svg>${plain ? '' : `<b class="fl-n">${Math.max(0, n - 1)}</b>`}`;
     return el;
   }
   const celeQ = [];
