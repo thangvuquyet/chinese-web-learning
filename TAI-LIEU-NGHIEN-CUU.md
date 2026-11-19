@@ -403,6 +403,7 @@ Tổng **khoảng 12–15 tháng** từ con số 0 đến N3 nếu đều đặn
 1. Lần đầu mở app, nhập tên (mặc định "Huyền Anh"). Có thể đổi tên và hình đại diện trong Cài đặt.
 2. **Trang chủ:**
    - gợi ý *Ôn thẻ đến hạn → Học bài tiếp theo → Thử thách nghe 5 phút*;
+   - **Thẻ chuỗi ngày:** ngọn lửa cùng số ngày liên tiếp, số thẻ đóng băng còn lại, lịch tuần T2 đến CN (ngày đã học được đánh dấu, hôm nay có vòng viền) và chuỗi dài nhất;
    - **3 nhiệm vụ hôm nay**, mỗi nhiệm vụ xong được thưởng 10 XP. Nhiệm vụ đầu luôn là đạt mục tiêu XP; 2 nhiệm vụ còn lại đổi mỗi ngày (ôn 20 thẻ, xong 1 bài, đọc 5 câu đạt 80%, đúng 30 câu, 8 câu đúng liên tiếp, một bài không sai, 1 lượt luyện nghe).
 3. **Lộ trình:** các bài nối thành con đường.
    - Mỗi bài gồm học thẻ từ mới (8–14 từ), rồi luyện tập trộn khoảng 20 câu, xong nhận sao và XP.
@@ -465,7 +466,10 @@ Vào Cài đặt → **Xuất tiến độ** để lưu file `.json`. Sang máy 
 - **Phong cách "Mực & Ngọc":**
   - Nền giấy dó ấm, chữ màu mực, màu chính xanh ngọc bích, điểm nhấn đỏ son kiểu con dấu triện. Không dùng màu hồng.
   - Chữ Hán lớn hiện trong ô 田字格 như vở tập viết. Biểu tượng nét mảnh thống nhất thay cho emoji ở menu và nút.
-- **Linh vật:** mèo con màu kem cam đeo vòng cổ ngọc bích, có 4 biểu cảm: vui, buồn, ngạc nhiên, suy nghĩ.
+- **Linh vật:** mèo con cam kem đeo vòng cổ ngọc bích, vẽ lại dạng chibi với 6 biểu cảm (vui, buồn, ngạc nhiên, suy nghĩ, reo mừng khi đạt mục tiêu ngày, ngủ). Mèo biết chớp mắt, vẫy đuôi, thở và gật đầu nhẹ.
+- **Chế độ sáng, tối:** nút mặt trăng, mặt trời trên thanh trên cùng, hoặc Cài đặt → Giao diện (Tự động, Sáng, Tối). Mặc định theo cài đặt của máy.
+- **Tìm nhanh:** nhấn **Ctrl K** hoặc phím **/** (hoặc nút "Tìm nhanh" trên thanh trên) để nhảy tới trang bất kỳ hoặc tra từ bằng chữ Hán, pinyin, Hán Việt, nghĩa tiếng Việt.
+- **Tên người học:** mặc định **Huyền Anh Hoàng**; lời chào chỉ dùng tên gọi "Huyền Anh". Hồ sơ cũ tên "Huyền Anh" tự đổi thành đầy đủ.
 - **Thanh điều hướng:**
   - Trên máy tính là cột bên trái, có nút **Thu gọn menu** ở dưới cùng để chỉ còn biểu tượng. App nhớ lựa chọn này.
   - Trên điện thoại là thanh dưới đáy màn hình.
@@ -492,15 +496,21 @@ Ví dụ: 女儿长得很像妈妈 → *Nǚ'ér zhǎng de hěn xiàng māma.* C�
 
 ---
 
-## 10. Hướng dẫn dùng app TOEIC "Pawlish" (Mèo & Chó)
+### 9.8 Giọng đọc cố định và kiểm thử
 
-App luyện TOEIC Listening & Reading cho **cả hai vợ chồng**, mục tiêu chung **800–900**. Mèo dùng hình con mèo, Chó dùng hình con chó. Mỗi người có hồ sơ, lộ trình và điểm dự đoán riêng.
+- Khi thư mục `audio/` có file thu sẵn (giọng thần kinh Azure: Xiaoxiao cho nữ và Yunxi cho nam), app ưu tiên phát file thu; câu nào chưa có thì dùng giọng của trình duyệt. Bật, tắt ở Cài đặt → "Dùng giọng chuẩn có sẵn".
+- Hội thoại nam nữ trong bài nghe dùng hai giọng khác nhau; đoạn văn một người nói và câu hỏi "问：" dùng giọng nữ.
+- Cách tạo file thu và chạy kiểm thử giống app TOEIC, xem mục 10.9 và 10.10. Kế hoạch gồm khoảng 3.600 file, 26 nghìn ký tự.
+
+## 10. Hướng dẫn dùng app TOEIC "Pawlish" (Huyền Anh Hoàng & Quyết Thắng Vũ)
+
+App luyện TOEIC Listening & Reading cho **cả hai vợ chồng**, mục tiêu chung **800–900**. **Huyền Anh Hoàng** đi cùng bé mèo cam, **Quyết Thắng Vũ** đi cùng bé chó Shiba (vẽ riêng, có 6 biểu cảm và biết cử động). Mỗi người có hồ sơ, lộ trình và điểm dự đoán riêng. Hồ sơ cũ tên "Mèo", "Chó" tự đổi sang tên mới.
 
 ### 10.1 Mở app
 
 - **Online:** https://thangvuquyet.github.io/english-learning-web/ (GitHub Pages của repo riêng https://github.com/thangvuquyet/english-learning-web, tự cập nhật mỗi lần push lên nhánh `main`). Hai app là hai repo tách biệt, không dùng chung địa chỉ.
 - **Cài thành app trên máy tính (Chrome):** mở địa chỉ trên → menu ⋮ → **Cast, save and share** → **Install page as app**. Biểu tượng bàn chân xanh sẽ có trên màn hình. Mỗi app (Mèo HSK, Pawlish) cài riêng.
-- **Lần đầu mở:** 3 bước: đặt tên hai người (mặc định Mèo, Chó) → chọn điểm mục tiêu (800/850/900) và thời gian học mỗi ngày → chọn **ai dùng máy này**.
+- **Lần đầu mở:** 3 bước: đặt tên hai người (mặc định Huyền Anh Hoàng, Quyết Thắng Vũ) → chọn điểm mục tiêu (800/850/900) và thời gian học mỗi ngày → chọn **ai dùng máy này**.
 - **Nên dùng Chrome hoặc Edge:** cần để có giọng đọc tiếng Anh tốt và để AI nghe giọng nói. Edge có nhiều giọng thần kinh (Aria, Guy, Sonia, Natasha…) nghe tự nhiên hơn; Chrome có giọng Google Mỹ và Anh.
 
 ### 10.2 Luồng học mỗi ngày (khoảng 30–45 phút)
@@ -554,8 +564,8 @@ Thêm vào đó có 3 nhiệm vụ mỗi ngày (+10 XP mỗi nhiệm vụ), chu�
 ### 10.6 Đôi ta: học cùng nhau
 
 - **Cùng một máy:** bấm vào hồ sơ ở góc trên trái (hoặc ảnh đại diện) → **Đổi người học**.
-- **Hai máy khác nhau:** vào **Mèo & Chó** → **Tạo link tiến độ** → gửi link qua Zalo/Messenger. Người kia mở link là app cập nhật tiến độ của bạn (kèm lời nhắn chưa gửi). Link chỉ chứa số liệu tóm tắt (XP, chuỗi ngày, điểm dự đoán, số từ, điểm đề), không có dữ liệu cá nhân khác.
-- Trang **Mèo & Chó** có: chuỗi đôi (chỉ tăng khi cả hai cùng học trong ngày), mục tiêu tuần của đội, đua XP tuần với biểu đồ từng ngày, bảng so 9 chỉ số, lời nhắn động viên.
+- **Hai máy khác nhau:** vào **Cùng nhau** → **Tạo link tiến độ** → gửi link qua Zalo/Messenger. Người kia mở link là app cập nhật tiến độ của bạn (kèm lời nhắn chưa gửi). Link chỉ chứa số liệu tóm tắt (XP, chuỗi ngày, điểm dự đoán, số từ, điểm đề), không có dữ liệu cá nhân khác.
+- Trang **Cùng nhau** có: chuỗi đôi (chỉ tăng khi cả hai cùng học trong ngày), mục tiêu tuần của đội, đua XP tuần với biểu đồ từng ngày, bảng so 9 chỉ số, lời nhắn động viên.
 
 ### 10.7 Học hỏi từ các app lớn
 
@@ -581,7 +591,32 @@ Tính năng của Pawlish được chọn sau khi xem cách các app học ngo�
 - [Best spaced repetition apps 2026](https://chunks-landing.pages.dev/blog/best-spaced-repetition-apps-2026)
 - [TOEIC 4-Skills 2026 (digiSchool)](https://www.digischool.fr/articles/toeic/nouveau-toeic-4-skills-aout-2026/): cho biết TOEIC Listening & Reading không đổi định dạng (200 câu, 2 giờ); cần đối chiếu với ETS trước khi thi.
 
-### 10.8 Sao lưu và giới hạn
+### 10.8 Giao diện, chế độ tối và tìm nhanh
+
+- **Chế độ sáng, tối:** nút trên thanh trên cùng hoặc Cài đặt → Giao diện (Tự động, Sáng, Tối). Tự động theo cài đặt của máy.
+- **Tìm nhanh:** Ctrl K hoặc phím **/** để nhảy tới trang, bài ngữ pháp hoặc tra từ vựng.
+- **Linh vật:** mèo và chó có 6 biểu cảm (vui, buồn, ngạc nhiên, suy nghĩ, reo mừng, ngủ); ảnh đại diện lấy từ chính khuôn mặt linh vật.
+
+### 10.9 Giọng đọc cố định (nghe giống nhau trên mọi máy)
+
+- Mặc định app đọc bằng giọng có sẵn của trình duyệt, nên mỗi máy một khác. Khi thư mục `audio/` có file thu sẵn, app **ưu tiên phát file thu** (giọng thần kinh Azure) và chỉ quay về giọng trình duyệt khi câu đó chưa có file.
+- Bài nghe dùng đủ 4 giọng Mỹ, Anh, Úc, Canada, nam và nữ. Mỗi đoạn hội thoại được gán giọng cố định theo mã bài, nên nghe lại vẫn đúng người nói cũ. Người dẫn đề (số câu, giới thiệu nhóm câu) dùng một giọng riêng.
+- Tên đáp án (A), (B), (C), (D) được đọc bằng file riêng ghép trước câu, nên dùng chung cho mọi câu cùng giọng.
+- Bật, tắt ở Cài đặt → Giọng đọc → "Giọng chuẩn có sẵn". Máy không có giọng tiếng Anh vẫn nghe được vì không cần giọng của trình duyệt.
+- Tốc độ đọc ở Cài đặt vẫn áp dụng cho file thu (giữ nguyên cao độ). File thu được trình duyệt lưu lại sau lần nghe đầu nên nghe lại không tải lại.
+
+### 10.10 Kiểm thử và tạo file giọng đọc (dành cho người cập nhật app)
+
+- **Chạy kiểm thử:** `npm test` trong thư mục app (cần Node 18 trở lên, không cần cài thêm gì). Bộ kiểm thử kiểm tra lịch ôn FSRS, quy đổi điểm TOEIC, so khớp âm, dựng đề thi, tính nhất quán của dữ liệu và toàn bộ quy trình tạo file giọng đọc với máy chủ Azure giả.
+- **Kế hoạch file giọng đọc:** `npm run audio:plan` liệt kê số file và số ký tự cần tạo, không gọi dịch vụ. App TOEIC cần khoảng 6.800 file, 170 nghìn ký tự; app tiếng Trung khoảng 3.600 file, 26 nghìn ký tự. Hai app cộng lại còn dưới 500 nghìn ký tự miễn phí mỗi tháng của Azure Speech (gói F0).
+- **Tạo tài khoản Azure Speech:** vào portal.azure.com → Create a resource → Speech → chọn gói **Free F0** → sau khi tạo, mở **Keys and Endpoint**, chép **KEY 1** và **Location/Region** (ví dụ southeastasia).
+- **File khóa (không bao giờ đưa vào repo):** tạo `C:\Users\<tên>\azure-speech.json` nội dung `{"key": "...", "region": "southeastasia"}`.
+- **Tạo file:** `npm run audio`. Lệnh chạy lại được: file đã có thì bỏ qua, ngắt giữa chừng rồi chạy tiếp vẫn đúng. Gói F0 giới hạn 20 yêu cầu mỗi phút nên mặc định chạy 18 yêu cầu mỗi phút (app TOEIC khoảng 6 giờ, app tiếng Trung khoảng 3,5 giờ). Dùng `--tiers 1` để tạo trước phần bài nghe, `--rpm 300 --concurrency 4` nếu dùng gói trả phí S0.
+- **Sổ ký tự:** công cụ ghi số ký tự đã dùng trong tháng vào `~/.azure-speech-usage.json` (dùng chung cho cả hai app) và dừng trước mốc 480 nghìn ký tự.
+- **Đưa lên web:** commit thư mục `audio/` (khoảng 70 MB cho app TOEIC, 40 MB cho app tiếng Trung) rồi push như bình thường.
+- **Thêm nội dung mới:** thêm câu vào dữ liệu rồi chạy lại `npm run audio`, chỉ tạo file cho câu mới.
+
+### 10.11 Sao lưu và giới hạn
 
 - **Sao lưu:** Cài đặt → **Tải file** (chứa tiến độ cả hai người) → mở trên máy khác → **Chọn file**.
 - **Dữ liệu cục bộ:** tiến độ lưu trong trình duyệt. Bản mở từ thư mục code (file://) và bản online lưu riêng; nên học trên bản online đã cài.

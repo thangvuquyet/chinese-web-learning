@@ -4,9 +4,9 @@ App.register('stats', {
     const p = Store.P();
     const lv = Store.levelOf(p.xp);
     const curL = Store.xpForLevel(lv), nextL = Store.xpForLevel(lv + 1);
-    root.appendChild(UI.pageTitle('📊', 'Tiến độ của ' + p.name));
+    root.appendChild(UI.pageTitle('📊', 'Tiến độ của ' + U.short(p.name)));
     root.appendChild(h('div.card.tint-jade',
-      h('div.row', h('span.avatar.lg', { style: { background: p.color } }, p.avatar),
+      h('div.row', UI.avatarEl(p, 'lg'),
         h('div.grow', h('b', { style: { fontSize: '20px' } }, `Cấp ${lv}`), h('div.small.muted', { style: { fontWeight: 600 } }, `${p.xp} XP · còn ${nextL - p.xp} XP để lên cấp ${lv + 1}`), h('div.mt', UI.progress((p.xp - curL) / (nextL - curL), 'gold'))))));
 
     const days = [];
@@ -46,7 +46,7 @@ App.register('stats', {
       const y180 = H2 - pad - 180 / 300 * (H2 - pad * 2);
       const c2 = h('div');
       c2.innerHTML = `<svg class="chart" viewBox="0 0 ${W2} ${H2}"><line x1="${pad}" x2="${W2 - pad}" y1="${y180}" y2="${y180}" stroke="#2A9D68" stroke-dasharray="4 4"/><text x="${W2 - pad}" y="${y180 - 4}" text-anchor="end">180</text>${line(ex3, '#0F7B66')}${line(ex4, '#34508A')}</svg>`;
-      root.append(h('div.sec-title', '📝 Điểm thi thử'), h('div.card', c2, h('div.row.small', { style: { fontWeight: 600 } }, h('span', { style: { color: '#0B5F4F' } }, `● HSK3: ${ex3.length} lượt, cao nhất ${ex3.length ? Math.max(...ex3) : '–'}`), h('span', { style: { color: '#34508A' } }, `● HSK4: ${ex4.length} lượt, cao nhất ${ex4.length ? Math.max(...ex4) : '–'}`))));
+      root.append(h('div.sec-title', '📝 Điểm thi thử'), h('div.card', c2, h('div.row.small', { style: { fontWeight: 600 } }, h('span', { style: { color: 'var(--jade-t)' } }, `● HSK3: ${ex3.length} lượt, cao nhất ${ex3.length ? Math.max(...ex3) : '–'}`), h('span', { style: { color: 'var(--indigo-t)' } }, `● HSK4: ${ex4.length} lượt, cao nhất ${ex4.length ? Math.max(...ex4) : '–'}`))));
     }
 
     root.append(h('div.sec-title', `🏅 Huy hiệu (${Object.keys(p.badges).length}/${Store.BADGES.length})`),

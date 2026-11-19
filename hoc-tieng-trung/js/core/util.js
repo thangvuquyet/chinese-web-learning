@@ -238,5 +238,6 @@ const U = (() => {
   }
   const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
 
-  return { splitPy, $, $$, h, clear, hash, rng, shuffle, pick, sample, uniq, clamp, sleep, tonesOf, setToneAt, toneVariants, stripTones, onlyHan, tokens, bare, joinSeg, countHan, viTone, viBase, hvEntering, predictTone, dayKey, daysBetween, fmtDur, fmtInterval, fmtDate, similarity, debounce };
+  const short = n => { const w = String(n || '').trim().split(/\s+/).filter(Boolean); return w.length >= 3 ? w.slice(0, -1).join(' ') : w.join(' '); };
+  return { short, splitPy, $, $$, h, clear, hash, rng, shuffle, pick, sample, uniq, clamp, sleep, tonesOf, setToneAt, toneVariants, stripTones, onlyHan, tokens, bare, joinSeg, countHan, viTone, viBase, hvEntering, predictTone, dayKey, daysBetween, fmtDur, fmtInterval, fmtDate, similarity, debounce };
 })();

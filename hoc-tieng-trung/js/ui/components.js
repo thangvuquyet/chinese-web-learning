@@ -20,13 +20,28 @@ const UI = (() => {
   function ring(pct, color = '#0F7B66', label = '') {
     const r = 14, c = 2 * Math.PI * r;
     const el = h('div.ring');
-    el.innerHTML = `<svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="${r}" stroke="#E6E1D6" stroke-width="5" fill="none"/><circle cx="17" cy="17" r="${r}" stroke="${color}" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - U.clamp(pct, 0, 1))}" style="transition:stroke-dashoffset .8s"/></svg><div class="rv">${label}</div>`;
+    el.innerHTML = `<svg width="34" height="34" viewBox="0 0 34 34"><circle cx="17" cy="17" r="${r}" style="stroke:var(--line)" stroke-width="5" fill="none"/><circle cx="17" cy="17" r="${r}" stroke="${color}" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - U.clamp(pct, 0, 1))}" style="transition:stroke-dashoffset .8s"/></svg><div class="rv">${label}</div>`;
     return el;
   }
   function progress(pct, cls = '') {
     return h('div.progress' + (cls ? '.' + cls : ''), h('i', { style: { width: Math.round(U.clamp(pct, 0, 1) * 100) + '%' } }));
   }
 
+  function avatarEl(p, cls = '') {
+    const el = h('span.avatar' + (cls ? '.' + cls : ''), { style: { background: p.color } });
+    if (p.avatar === '🐱') {
+      el.classList.add('mas');
+      el.innerHTML = Mascot.svg('cat', { collar: '#0F7B66', tag: '#E3B54A' }).replace('viewBox="0 0 200 200"', 'viewBox="' + Mascot.headBox + '"').replace(/<ellipse class="shadow"[^>]*\/>/, '');
+    } else el.textContent = p.avatar;
+    return el;
+  }
+  function toggleTheme() {
+    const s = Store.settings();
+    s.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    Store.save(true);
+    App.applyTheme();
+    topbar();
+  }
   function topbar() {
     const bar = document.getElementById('topbar');
     clear(bar);
@@ -36,9 +51,11 @@ const UI = (() => {
     const goalPct = Store.todayXP(p) / p.goal;
     bar.append(
       h('button.tb-profile', { onclick: () => Store.all().length > 1 ? profileSwitcher() : profileEditor(p), title: 'Hồ sơ của bạn' },
-        h('span.avatar', { style: { background: p.color } }, p.avatar),
-        h('span', p.name)),
+        avatarEl(p),
+        h('span', U.short(p.name))),
       h('div.tb-stats',
+        h('button.tb-search', { onclick: () => Palette.open(), title: 'Tìm nhanh (Ctrl K hoặc /)' }, Icon.svg('search'), h('span', 'Tìm nhanh'), h('kbd', 'Ctrl K')),
+        h('button.tb-ic', { onclick: toggleTheme, title: 'Chế độ sáng, tối', 'aria-label': 'Đổi chế độ sáng tối' }, Icon.svg(document.documentElement.dataset.theme === 'dark' ? 'sun' : 'moon')),
         h('span.chip.flame' + (sv.today ? '' : '.off'), { title: sv.today ? 'Chuỗi ngày học' : 'Học hôm nay để giữ lửa!' }, h('span.em', Icon.svg('flame')), sv.n),
         h('span.chip.xp', { title: 'Tổng XP' }, Icon.svg('star'), p.xp),
         h('span', { title: `Mục tiêu hôm nay: ${Store.todayXP(p)}/${p.goal} XP` }, ring(goalPct, goalPct >= 1 ? '#2A9D68' : '#0F7B66', goalPct >= 1 ? '✓' : Math.round(goalPct * 100) + '%'))
@@ -167,21 +184,22 @@ const UI = (() => {
       return h('div',
         h('h2', 'Chọn hồ sơ'),
         h('div.grid2', list.map(p => h('button.prof-card' + (p.id === Store.db.active ? '.on' : ''), {
-          onclick: () => { Store.setActive(p.id); close(); FX.sfx.pop(); App.refresh(); FX.toast(`Chào ${p.name}! ${p.avatar}`); }
-        }, h('span.avatar', { style: { background: p.color } }, p.avatar), p.name, h('span.small.muted', `Cấp ${Store.levelOf(p.xp)} · ${Object.keys(p.cards).length} từ`)))),
+          onclick: () => { Store.setActive(p.id); close(); FX.sfx.pop(); App.refresh(); FX.toast(`Chào ${U.short(p.name)}!`); }
+        }, avatarEl(p), U.short(p.name), h('span.small.muted', `Cấp ${Store.levelOf(p.xp)} · ${Object.keys(p.cards).length} từ`)))),
       );
     });
   }
   function profileEditor(p, onDone) {
     let name = p ? p.name : '', avatar = p ? p.avatar : Store.AVATARS[Store.all().length % Store.AVATARS.length], color = p ? p.color : Store.COLORS[0];
     FX.modal(close => {
-      const prev = h('span.avatar.lg', { style: { background: color } }, avatar);
-      const inp = h('input.input', { value: name, placeholder: 'Tên gọi (ví dụ: Huyền Anh)', maxlength: 20, oninput: e => name = e.target.value });
+      let prev = avatarEl({ color, avatar }, 'lg');
+      const setPrev = () => { const n = avatarEl({ color, avatar }, 'lg'); prev.replaceWith(n); prev = n; };
+      const inp = h('input.input', { value: name, placeholder: 'Họ và tên (ví dụ: Huyền Anh Hoàng)', maxlength: 20, oninput: e => name = e.target.value });
       const avs = h('div.avatar-pick', Store.AVATARS.map(a => h('button' + (a === avatar ? '.on' : ''), {
-        onclick: e => { avatar = a; prev.textContent = a; [...avs.children].forEach(c => c.classList.toggle('on', c === e.currentTarget)); }
-      }, a)));
+        onclick: e => { avatar = a; setPrev(); [...avs.children].forEach(c => c.classList.toggle('on', c === e.currentTarget)); }
+      }, a === '🐱' ? avatarEl({ color: 'transparent', avatar: a }) : a)));
       const cols = h('div.avatar-pick', Store.COLORS.map(c => h('button' + (c === color ? '.on' : ''), {
-        style: { background: c }, onclick: e => { color = c; prev.style.background = c; [...cols.children].forEach(x => x.classList.toggle('on', x === e.currentTarget)); }
+        style: { background: c }, onclick: e => { color = c; setPrev(); [...cols.children].forEach(x => x.classList.toggle('on', x === e.currentTarget)); }
       }, '')));
       return h('div',
         h('h2', p ? 'Sửa hồ sơ' : 'Người học mới'),
@@ -205,9 +223,9 @@ const UI = (() => {
     clear(view);
     document.getElementById('tabbar').innerHTML = '';
     document.getElementById('topbar').innerHTML = '';
-    let name = 'Huyền Anh';
+    let name = 'Huyền Anh Hoàng';
     const start = () => {
-      const p = Store.createProfile((name || 'Huyền Anh').trim(), '🐱', '#F8F0DC');
+      const p = Store.createProfile((name || 'Huyền Anh Hoàng').trim(), '🐱', '#F8F0DC');
       Store.setActive(p.id);
       FX.sfx.done(); FX.confetti({ n: 140 });
       App.go('home');
@@ -310,5 +328,5 @@ const UI = (() => {
     const size = cls || (ch.length > 3 ? 'sm' : ch.length > 2 ? 'md' : '');
     return h('div.big-hz' + (size ? '.' + size : ''), { lang: 'zh-CN', 'aria-label': text }, ch.map(c => /[㐀-鿿]/.test(c) ? h('span.gz', h('span', c)) : h('span', c)));
   }
-  return { audioBtn, stars, ring, progress, topbar, tabbar, wordDetail, exampleBox, openWord, writerPanel, writerModal, loadHanziWriter, profileSwitcher, profileEditor, onboarding, celebrate, award, empty, backBtn, pageTitle, hz, applyNav };
+  return { avatarEl, toggleTheme, audioBtn, stars, ring, progress, topbar, tabbar, wordDetail, exampleBox, openWord, writerPanel, writerModal, loadHanziWriter, profileSwitcher, profileEditor, onboarding, celebrate, award, weekRow, empty, backBtn, pageTitle, hz, applyNav };
 })();

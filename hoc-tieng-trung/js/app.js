@@ -46,7 +46,22 @@ const App = (() => {
     window.scrollTo(0, 0);
   }
   function refresh() { render(); }
+  function applyTheme() {
+    const t = Store.settings().theme || 'auto';
+    const dark = t === 'dark' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+    const m = document.querySelector('meta[name=theme-color]');
+    if (m) m.content = dark ? '#0B1511' : '#0E6A59';
+    return dark;
+  }
   function boot() {
+    applyTheme();
+    try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if ((Store.settings().theme || 'auto') === 'auto') applyTheme(); }); } catch (e) {}
+    addEventListener('keydown', e => {
+      const tag = ((document.activeElement || {}).tagName || '');
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); Palette.open(); }
+      else if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(tag)) { e.preventDefault(); Palette.open(); }
+    });
     document.body.classList.toggle('reduce-motion', !Store.settings().motion);
     Icon.observe();
     UI.applyNav();
@@ -55,6 +70,6 @@ const App = (() => {
     render();
     if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(() => {});
   }
-  return { register, go, render, refresh, boot, get current() { return current; } };
+  return { register, go, render, refresh, boot, applyTheme, get current() { return current; } };
 })();
 document.addEventListener('DOMContentLoaded', () => App.boot());

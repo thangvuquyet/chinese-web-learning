@@ -1,0 +1,9 @@
+{
+  "name": "meo-hsk",
+  "private": true,
+  "scripts": {
+    "test": "node --test \"tests/*.test.cjs\"",
+    "audio:plan": "node tools/make-audio.cjs --plan",
+    "audio": "node tools/make-audio.cjs"
+  }
+}

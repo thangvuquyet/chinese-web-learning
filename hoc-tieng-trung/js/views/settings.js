@@ -35,8 +35,14 @@ App.register('settings', {
     const s = Store.settings();
     root.appendChild(UI.pageTitle('⚙️', 'Cài đặt'));
     root.appendChild(h('div.card',
-      h('div.row', h('span.avatar.lg', { style: { background: p.color } }, p.avatar), h('div.grow', h('b', { style: { fontSize: '18px' } }, p.name), h('div.small.muted', { style: { fontWeight: 500 } }, 'Hồ sơ đang dùng')),
+      h('div.row', UI.avatarEl(p, 'lg'), h('div.grow', h('b', { style: { fontSize: '18px' } }, p.name), h('div.small.muted', { style: { fontWeight: 500 } }, 'Hồ sơ đang dùng')),
         h('button.btn.ghost.sm', { onclick: () => UI.profileEditor(p) }, '✏️ Sửa'), Store.all().length > 1 ? h('button.btn.ghost.sm', { onclick: UI.profileSwitcher }, '🔄 Đổi') : null)));
+
+    root.appendChild(h('div.sec-title', '🎨 Giao diện'));
+    const themeRow = h('div.row.wrap');
+    const paintTheme = () => { clear(themeRow); [['auto', 'Tự động'], ['light', 'Sáng'], ['dark', 'Tối']].forEach(([k, l]) => themeRow.appendChild(h('button.btn.sm' + ((s.theme || 'auto') === k ? '' : '.ghost'), { onclick: () => { s.theme = k; Store.save(true); App.applyTheme(); UI.topbar(); paintTheme(); } }, l))); };
+    paintTheme();
+    root.appendChild(h('div.card', h('div.small', { style: { fontWeight: 600, marginBottom: '8px' } }, 'Chế độ màu: tự động theo máy, hoặc chọn sáng, tối'), themeRow));
 
     root.appendChild(h('div.sec-title', '🎯 Mục tiêu'));
     const goalRow = h('div.row.wrap');
@@ -71,6 +77,7 @@ App.register('settings', {
 
     root.appendChild(h('div.sec-title', '🎛️ Tùy chọn'));
     const toggles = [
+      ...(Clips.size ? [['clips', '🎙️ Dùng giọng chuẩn có sẵn (giống nhau trên mọi máy)']] : []),
       ['sound', '🔔 Âm thanh hiệu ứng'], ['motion', '✨ Hoạt hình & pháo giấy'], ['autoplay', '🔊 Tự đọc từ khi hiện thẻ'],
       ['showPy', '🔤 Hiện pinyin trong câu hỏi và ví dụ'], ['showHv', '📜 Hiện âm Hán Việt'], ['speakEx', '🎤 Có bài đọc to trong mỗi bài học'], ['unlockAll', '🔓 Mở khóa tất cả bài (học tự do)']
     ];

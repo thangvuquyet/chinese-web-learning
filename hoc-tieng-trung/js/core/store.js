@@ -13,7 +13,7 @@ const Store = (() => {
       profiles: {},
       order: [],
       active: null,
-      settings: { rate: 0.85, voice: '', sound: true, motion: true, unlockAll: false, autoplay: true, showPy: true, showHv: true, navMini: false, speakEx: true, speakOff: 0 },
+      settings: { rate: 0.85, voice: '', sound: true, motion: true, unlockAll: false, autoplay: true, showPy: true, showHv: true, navMini: false, clips: true, theme: 'auto', speakEx: true, speakOff: 0 },
       custom: []
     };
   }
@@ -36,6 +36,7 @@ const Store = (() => {
     db.settings = Object.assign({}, f.settings, db.settings || {});
     db.custom = db.custom || [];
     for (const p of Object.values(db.profiles)) {
+      if (p.name === 'Huyền Anh') p.name = 'Huyền Anh Hoàng';
       const b = blankProfile(p.name, p.avatar, p.color);
       for (const k of Object.keys(b)) if (p[k] === undefined) p[k] = b[k];
       p.stats = Object.assign({}, b.stats, p.stats);

@@ -37,8 +37,9 @@ const Speech = (() => {
     const re = gender === 'f' ? FEMALE : MALE;
     return list.find(v => re.test(v.name)) || null;
   }
-  const available = () => !!synth && zhVoices().length > 0;
-  const supported = () => !!synth;
+  const clipsOn = () => Store.settings().clips !== false && Clips.size > 0;
+  const available = () => clipsOn() || (!!synth && zhVoices().length > 0);
+  const supported = () => !!synth || clipsOn();
 
   function chunks(text) {
     const parts = String(text).split(/(?<=[。！？；!?;])/).flatMap(s => s.length > 44 ? s.split(/(?<=[，,、：])/) : [s]).filter(s => s.trim());
@@ -49,7 +50,21 @@ const Speech = (() => {
     }
     return out;
   }
-  function speak(text, opts = {}) {
+  async function speak(text, opts = {}) {
+    if (!text) return false;
+    const key = opts.key || Voices.key(opts.gender);
+    if (opts.cancel !== false) Clips.stop();
+    if (clipsOn() && Clips.has(key, text)) {
+      const my = opts.token != null ? opts.token : ++token;
+      if (opts.cancel !== false && synth) synth.cancel();
+      const r = await Clips.play(key, text, Math.min(1.6, Math.max(.4, (opts.rate || 1) * (Store.settings().rate || .85))));
+      if (r === 1) return my === token;
+      if (r === 0 || my !== token) return false;
+      return speakBrowser(text, Object.assign({}, opts, { token: my, cancel: false }));
+    }
+    return speakBrowser(text, opts);
+  }
+  function speakBrowser(text, opts = {}) {
     if (!synth || !text) return Promise.resolve(false);
     const list = String(text).length > 36 ? chunks(text) : [String(text)];
     if (list.length < 2) return speakOne(text, opts);
@@ -90,6 +105,7 @@ const Speech = (() => {
   async function speakLines(lines, opts = {}) {
     const my = ++token;
     synth && synth.cancel();
+    Clips.stop();
     for (const ln of lines) {
       if (my !== token) return false;
       const gender = ln.who === '女' ? 'f' : ln.who === '男' ? 'm' : null;
@@ -99,7 +115,7 @@ const Speech = (() => {
     }
     return my === token;
   }
-  function stop() { token++; if (synth) synth.cancel(); }
+  function stop() { token++; if (synth) synth.cancel(); Clips.stop(); }
   function parseDialog(str) {
     return str.split('|').map(s => {
       const m = s.match(/^(男|女)：(.*)$/);

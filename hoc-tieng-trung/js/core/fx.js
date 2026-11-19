@@ -117,41 +117,15 @@ const FX = (() => {
   }
 
   function mascot(mood = 'happy', size = '') {
-    const wrap = h('div.mascot' + (size ? '.' + size : ''), { dataset: { mood } });
-    wrap.innerHTML = `<svg viewBox="0 0 120 120" width="100%" height="100%" aria-hidden="true">
-      <ellipse cx="60" cy="114" rx="32" ry="4.5" fill="rgba(23,33,29,.10)"/>
-      <path d="M19 58 L25 14 Q27 9 31 12 L55 33 Z" fill="#F4BE86" stroke="#D99A58" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M101 58 L95 14 Q93 9 89 12 L65 33 Z" fill="#F4BE86" stroke="#D99A58" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M26 46 L29 22 L44 35 Z" fill="#FBE3C8"/>
-      <path d="M94 46 L91 22 L76 35 Z" fill="#FBE3C8"/>
-      <ellipse cx="42" cy="108" rx="11" ry="7" fill="#F4BE86" stroke="#D99A58" stroke-width="2"/>
-      <ellipse cx="78" cy="108" rx="11" ry="7" fill="#F4BE86" stroke="#D99A58" stroke-width="2"/>
-      <path d="M36 108v-3M42 108v-4M48 108v-3M72 108v-3M78 108v-4M84 108v-3" stroke="#D99A58" stroke-width="1.6" stroke-linecap="round"/>
-      <ellipse cx="60" cy="64" rx="45" ry="39" fill="#F4BE86" stroke="#D99A58" stroke-width="2"/>
-      <path d="M50 28 Q52 36 51 42 M60 26 Q61 35 60 42 M70 28 Q68 36 69 42" stroke="#DE9B55" stroke-width="3.2" fill="none" stroke-linecap="round"/>
-      <path d="M17 62 Q24 60 29 63 M16 70 Q23 69 28 71 M103 62 Q96 60 91 63 M104 70 Q97 69 92 71" stroke="#DE9B55" stroke-width="2.6" fill="none" stroke-linecap="round"/>
-      <ellipse cx="60" cy="80" rx="24" ry="17" fill="#FFF6EA"/>
-      <g class="eye"><ellipse cx="42" cy="62" rx="6.2" ry="7.4" fill="#24201C"/><circle cx="44.2" cy="59.4" r="2.2" fill="#fff"/><circle cx="40.6" cy="65" r="1" fill="#fff" opacity=".8"/></g>
-      <g class="eye"><ellipse cx="78" cy="62" rx="6.2" ry="7.4" fill="#24201C"/><circle cx="80.2" cy="59.4" r="2.2" fill="#fff"/><circle cx="76.6" cy="65" r="1" fill="#fff" opacity=".8"/></g>
-      <ellipse cx="30" cy="77" rx="7.5" ry="4.5" fill="#EE9A62" opacity=".38"/><ellipse cx="90" cy="77" rx="7.5" ry="4.5" fill="#EE9A62" opacity=".38"/>
-      <path d="M56.2 72.5 Q60 70.6 63.8 72.5 Q62.6 76 60 76.8 Q57.4 76 56.2 72.5Z" fill="#8A5A44"/>
-      <path d="M60 76.8 V79" stroke="#5B3D30" stroke-width="2" stroke-linecap="round"/>
-      <path class="m-happy" d="M51 79 Q55.5 85 60 79 Q64.5 85 69 79" stroke="#5B3D30" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <path class="m-sad" d="M52 86 Q56 81 60 83 Q64 81 68 86" stroke="#5B3D30" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <ellipse class="m-wow" cx="60" cy="84" rx="4" ry="5" fill="#5B3D30"/>
-      <path class="m-think" d="M54 83 Q60 81.5 66 84" stroke="#5B3D30" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <path d="M38 80 L20 77 M38 84 L21 86 M82 80 L100 77 M82 84 L99 86" stroke="#B8875E" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M27 96 Q60 110 93 96 L91 103 Q60 118 29 103Z" fill="#0F7B66"/>
-      <circle cx="60" cy="108" r="5.6" fill="#E3B54A" stroke="#A97B16" stroke-width="1.6"/>
-      <path d="M56 107.5h8M60 109.5v3" stroke="#A97B16" stroke-width="1.4" stroke-linecap="round"/>
-    </svg>`;
+    const wrap = h('div.mascot.cat' + (size ? '.' + size : ''), { dataset: { mood } });
+    wrap.innerHTML = Mascot.svg('cat', { collar: '#0F7B66', tag: '#E3B54A' });
     return wrap;
   }
 
   let modalStack = [];
   function modal(content, opts = {}) {
     const root = document.getElementById('modal-root');
-    const box = h('div.modal', { role: 'dialog', 'aria-modal': 'true' });
+    const box = h('div.modal' + (opts.cls ? '.' + opts.cls : ''), { role: 'dialog', 'aria-modal': 'true' });
     const back = h('div.modal-back', box);
     const close = () => {
       back.remove();

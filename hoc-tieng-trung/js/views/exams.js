@@ -10,7 +10,7 @@
       let lv = +(params[0] || (Object.keys(p.cards).filter(id => D.byId[id] && D.byId[id].lv === 4).length > 150 ? 4 : 3));
       root.appendChild(UI.pageTitle('📝', 'Thi thử HSK 3.0'));
       const prog = getProg();
-      if (prog && prog.pid === p.id) root.appendChild(h('div.card.tint-gold.mb', { style: { background: 'linear-gradient(135deg,#fff,#F8F0DC)' } },
+      if (prog && prog.pid === p.id) root.appendChild(h('div.card.tint-gold.mb', { style: { background: 'linear-gradient(135deg,var(--card),var(--gold-l))' } },
         h('div.row', h('span', { style: { fontSize: '30px' } }, '⏸️'), h('div.grow', h('b', `Đang làm dở: HSK${prog.level} · Đề ${prog.no}`), h('div.small.muted', { style: { fontWeight: 500 } }, `Đã trả lời ${Object.keys(prog.answers || {}).length} câu · còn ${U.fmtDur(prog.left)}`)),
           h('button.btn.sm', { onclick: () => App.go('exam', prog.level, prog.no) }, 'Làm tiếp'))));
       const tabs = h('div.tabs');

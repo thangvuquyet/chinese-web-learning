@@ -39,7 +39,7 @@ App.register('learn', {
     }
     function falseFriend(w) {
       const f = HSK.falseFriends.find(x => x[0] === w.hz);
-      return f ? h('div.tone-hint', { style: { background: 'var(--red-l)', color: '#A02C20' } }, `⚠️ Bẫy Hán Việt: "${f[1]}" nhưng nghĩa là "${f[2]}"`) : null;
+      return f ? h('div.tone-hint', { style: { background: 'var(--red-l)', color: 'var(--red-t)' } }, `⚠️ Bẫy Hán Việt: "${f[1]}" nhưng nghĩa là "${f[2]}"`) : null;
     }
     function startQuiz() {
       clear(root);

@@ -41,7 +41,7 @@ App.register('grammar', {
         h('div.card.tint-indigo.mt.page-enter',
           h('div', { style: { fontSize: '44px' } }, g.icon),
           h('h2', g.title),
-          h('div.passage', { style: { fontSize: '18px', margin: '8px 0', background: '#fff' } }, '🧱 ', g.pattern),
+          h('div.passage', { style: { fontSize: '18px', margin: '8px 0', background: 'var(--card)' } }, '🧱 ', g.pattern),
           h('p', { style: { fontWeight: 500, fontSize: '16px' } }, g.explain)),
         h('div.sec-title', '🗣️ Ví dụ (bấm 🔊 để nghe)'),
         h('div.col', g.examples.map(([seg, vi]) => UI.exampleBox({ text: U.joinSeg(seg), vi }))),

@@ -15,16 +15,22 @@ App.register('home', {
       'Mỗi ngày một chút, rồi sẽ tới HSK4. 加油！'
     ];
     const hero = h('div.hero',
-      FX.mascot(sv.today ? 'happy' : 'think'),
-      h('div.bubble.grow', h('div.zh', greet[0]), h('div', `${greet[1]}, ${p.name}! ${U.pick(msgs)}`)));
+      FX.mascot(today >= p.goal ? 'cheer' : sv.today ? 'happy' : 'think'),
+      h('div.bubble.grow', h('div.zh', greet[0]), h('div', `${greet[1]}, ${U.short(p.name)}! ${U.pick(msgs)}`)));
     root.appendChild(hero);
 
     const goalPct = today / p.goal;
     root.appendChild(h('div.card.mt',
       h('div.row.between', h('b', '🎯 Mục tiêu hôm nay'), h('span.small.muted', { style: { fontWeight: 600 } }, `${today} / ${p.goal} XP`)),
-      h('div.mt', UI.progress(goalPct, goalPct >= 1 ? '' : 'jade')),
-      h('div.row.wrap.mt.small.meta', { style: { color: 'var(--ink2)', gap: '6px 16px' } },
-        h('span', `🔥 Chuỗi: ${sv.n} ngày`), h('span', `❄️ Đóng băng: ${p.streak.freeze}`), h('span', `🏅 Cao nhất: ${p.streak.best}`))));
+      h('div.mt', UI.progress(goalPct, goalPct >= 1 ? '' : 'jade'))));
+
+    root.appendChild(h('div.card.mt.streak-card',
+      h('div.row',
+        h('span.sc-flame' + (sv.today ? '' : '.off'), Icon.svg('flame')),
+        h('div.grow', h('b.sc-n', `${sv.n} ngày liên tiếp`), h('div.small.muted', { style: { fontWeight: 500 } }, sv.today ? 'Hôm nay đã giữ chuỗi' : sv.n ? 'Học một bài để giữ chuỗi' : 'Học một bài để bắt đầu chuỗi')),
+        h('span.pill.info', { title: 'Thẻ đóng băng giữ chuỗi khi lỡ một ngày' }, Icon.svg('snow'), String(p.streak.freeze))),
+      UI.weekRow(p),
+      h('div.small.muted.mt', { style: { fontWeight: 500 } }, `Dài nhất ${p.streak.best} ngày. Mỗi 7 ngày liền được tặng thêm 1 thẻ đóng băng.`)));
 
     const QI = { goal: 'target', rev20: 'cards', lesson: 'route', speak5: 'mic', ok30: 'star', combo8: 'flame', perfect: 'trophy', listen: 'volume' };
     const qs = Store.quests(p);
@@ -40,7 +46,7 @@ App.register('home', {
     const examDate = Store.settings().examDate;
     if (examDate) {
       const left = U.daysBetween(U.dayKey(), examDate);
-      if (left >= 0) root.appendChild(h('div.card.tint-gold.mt', { style: { background: 'linear-gradient(135deg,#fff,#F8F0DC)' } }, h('div.row', h('span', { style: { fontSize: '34px' } }, '⏳'), h('div.grow', h('b', left === 0 ? 'Hôm nay là ngày thi! Bình tĩnh, tự tin nhé!' : `Còn ${left} ngày nữa là thi`), h('div.small.muted', { style: { fontWeight: 500 } }, 'Ngày thi: ' + examDate.split('-').reverse().join('/'))))));
+      if (left >= 0) root.appendChild(h('div.card.tint-gold.mt', { style: { background: 'linear-gradient(135deg,var(--card),var(--gold-l))' } }, h('div.row', h('span', { style: { fontSize: '34px' } }, '⏳'), h('div.grow', h('b', left === 0 ? 'Hôm nay là ngày thi! Bình tĩnh, tự tin nhé!' : `Còn ${left} ngày nữa là thi`), h('div.small.muted', { style: { fontWeight: 500 } }, 'Ngày thi: ' + examDate.split('-').reverse().join('/'))))));
     }
 
     root.appendChild(h('div.sec-title', '✨ Hôm nay học gì?'));

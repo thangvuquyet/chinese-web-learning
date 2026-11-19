@@ -32,7 +32,7 @@ App.register('review', {
           h('div.stat.jade', h('b', counts.learning), h('span', 'Đang học')),
           h('div.stat.gold', h('b', counts.young), h('span', 'Đang nhớ')),
           h('div.stat.leaf', h('b', counts.mature), h('span', 'Nhớ chắc (≥21 ngày)'))),
-        total ? h('div.card.mt', h('div.small', { style: { fontWeight: 600, marginBottom: '6px' } }, `Tổng ${total} từ trong bộ ôn`), h('div.progress', h('i', { style: { width: (total ? counts.mature / total * 100 : 0) + '%' } })), h('div.small.muted', { style: { fontWeight: 500, marginTop: '6px' } }, 'Thanh xanh: tỷ lệ từ đã nhớ chắc')) : null,
+        total ? h('div.card.mt', h('div.small', { style: { fontWeight: 600, marginBottom: '6px' } }, `Tổng ${total} từ trong bộ ôn`), h('div.progress', h('i', { style: { width: (total ? counts.mature / total * 100 : 0) + '%' } })), h('div.small.muted', { style: { fontWeight: 500, marginTop: '6px' } }, 'Thanh xanh: tỷ lệ từ đã nhớ chắc')) : '',
         h('div.col.mt',
           due.length ? h('button.btn.block', { onclick: () => start(due) }, `▶️ Bắt đầu ôn ${Math.min(due.length, 150)} thẻ`) : null,
           missN >= 3 ? h('button.btn.ghost.block', { onclick: mistakes }, `🎯 Luyện ${Math.min(missN, 15)} từ hay làm sai`) : null,
